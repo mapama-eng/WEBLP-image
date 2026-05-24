@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.vercel/
+.edge-profile/
+*.log
+qa-*.png
+server.err.log
+server.out.log
+
