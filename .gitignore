@@ -1,9 +1,8 @@
 node_modules/
 dist/
-.vercel/
-.edge-profile/
+.vite/
+.edge-verify/
 *.log
-qa-*.png
-server.err.log
-server.out.log
-
+desktop-check.png
+mobile-check.png
+verification-result.json
