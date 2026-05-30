@@ -32,6 +32,10 @@ body::before {
 img {
   display: block;
   max-width: 100%;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
 }
 
 a {
@@ -41,8 +45,11 @@ a {
 
 html.reveal-ready [data-reveal] {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 900ms ease, transform 900ms ease;
+  transform: translateY(38px);
+  transition:
+    opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
 }
 
 html.reveal-ready [data-reveal].is-visible,
@@ -188,34 +195,36 @@ header .brand {
   position: relative;
   z-index: 1;
   display: grid;
-  min-height: 100vh;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: clamp(3rem, 7vw, 8rem);
-  align-items: end;
-  max-width: 1440px;
+  min-height: 100svh;
+  grid-template-columns: minmax(22rem, 0.82fr) minmax(24rem, 0.98fr);
+  gap: clamp(2.5rem, 5vw, 5.5rem);
+  align-items: center;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 8rem clamp(1.5rem, 5vw, 5rem) 5rem;
+  padding: clamp(6.4rem, 9vh, 7.4rem) clamp(1.5rem, 4vw, 4rem) clamp(3rem, 5vh, 4.2rem);
 }
 
 .hero-copy {
   display: grid;
-  gap: 1.55rem;
-  padding-bottom: clamp(1rem, 5vw, 4rem);
+  gap: clamp(1.1rem, 2vh, 1.45rem);
+  justify-items: start;
+  padding-bottom: 0;
 }
 
 .hero-copy h1 {
-  max-width: 13em;
-  font-size: clamp(2.25rem, 3.55vw, 3.85rem);
+  max-height: min(68vh, 36rem);
+  max-width: 10em;
+  font-size: clamp(1.9rem, 2.35vw, 2.65rem);
   font-weight: 400;
-  line-height: 1.18;
+  line-height: 1.08;
   writing-mode: vertical-rl;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.035em;
 }
 
 .hero-copy p:not(.eyebrow) {
-  max-width: 30rem;
-  font-size: 1rem;
-  line-height: 2.3;
+  max-width: 26rem;
+  font-size: 0.95rem;
+  line-height: 2.1;
   color: rgba(35, 33, 30, 0.7);
 }
 
@@ -228,7 +237,11 @@ header .brand {
 
 .hero-photo {
   position: relative;
+  justify-self: end;
+  width: min(100%, 35rem);
   margin: 0;
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .hero-photo img,
@@ -237,11 +250,12 @@ header .brand {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  box-shadow: 0 28px 70px rgba(69, 57, 43, 0.16);
+  box-shadow: 0 22px 58px rgba(69, 57, 43, 0.09);
+  filter: saturate(0.94) contrast(0.98);
 }
 
 .hero-photo img {
-  aspect-ratio: 0.95;
+  height: clamp(26rem, 62vh, 37rem);
   opacity: 0.96;
 }
 
@@ -251,7 +265,21 @@ header .brand {
   inset: 1.35rem;
   border: 1px solid rgba(184, 154, 94, 0.54);
   pointer-events: none;
+  z-index: 2;
+}
+
+.hero-photo::after,
+.space-photo::after,
+.entry-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(246, 240, 232, 0.28), rgba(255, 253, 248, 0.08) 36%, rgba(246, 240, 232, 0.24)),
+    linear-gradient(180deg, rgba(246, 240, 232, 0.22), transparent 34%, rgba(246, 240, 232, 0.2));
+  mix-blend-mode: screen;
 }
 
 .hero-photo figcaption {
@@ -261,16 +289,17 @@ header .brand {
   color: #fffdf8;
   font-size: 1.4rem;
   letter-spacing: 0.18em;
+  z-index: 3;
 }
 
 .message-section {
   position: relative;
   z-index: 1;
-  padding: clamp(6rem, 10vw, 10rem) 0;
+  padding: clamp(4.8rem, 7vw, 7.5rem) 0;
 }
 
 .vertical-message {
-  min-height: 33rem;
+  min-height: 27rem;
   display: flex;
   justify-content: center;
 }
@@ -278,9 +307,9 @@ header .brand {
 .vertical-message p {
   margin: 0;
   writing-mode: vertical-rl;
-  font-size: clamp(1.1rem, 1.45vw, 1.55rem);
-  line-height: 2.2;
-  letter-spacing: 0.18em;
+  font-size: clamp(1rem, 1.25vw, 1.35rem);
+  line-height: 2.05;
+  letter-spacing: 0.12em;
 }
 
 .work-section,
@@ -289,7 +318,7 @@ header .brand {
   z-index: 1;
   max-width: 1120px;
   margin: 0 auto;
-  padding: clamp(5rem, 9vw, 9rem) 1.5rem;
+  padding: clamp(4.5rem, 7vw, 7rem) 1.5rem;
 }
 
 .work-section .section-label,
@@ -301,8 +330,8 @@ header .brand {
 .work-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 4.5rem 4rem;
-  margin-top: clamp(4rem, 7vw, 6rem);
+  gap: clamp(2.8rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
+  margin-top: clamp(3.5rem, 5.5vw, 5rem);
 }
 
 .work-item {
@@ -329,7 +358,7 @@ header .brand {
 
 .work-note {
   border-top: 1px solid rgba(184, 154, 94, 0.72);
-  margin: clamp(4rem, 7vw, 6rem) auto 0;
+  margin: clamp(3.6rem, 5.5vw, 5rem) auto 0;
   max-width: 58rem;
   padding-top: 2.2rem;
   text-align: center;
@@ -342,17 +371,29 @@ header .brand {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 0.9fr);
-  gap: clamp(3rem, 7vw, 7rem);
+  grid-template-columns: minmax(0, 0.58fr) minmax(20rem, 0.42fr);
+  gap: clamp(2.6rem, 5vw, 5rem);
   align-items: center;
-  max-width: 1320px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: clamp(5rem, 9vw, 9rem) clamp(1.5rem, 5vw, 5rem);
+  padding: clamp(4.8rem, 7vw, 7.2rem) clamp(1.5rem, 4vw, 4rem);
 }
 
 .space-photo {
-  height: clamp(28rem, 60vw, 48rem);
+  position: relative;
+  justify-self: start;
+  width: 100%;
+  max-width: 42rem;
+  height: clamp(22rem, 42vw, 34rem);
   margin: 0;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.space-photo::after {
+  background:
+    linear-gradient(90deg, rgba(246, 240, 232, 0.2), transparent 42%, rgba(246, 240, 232, 0.26)),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.16), transparent 40%, rgba(246, 240, 232, 0.22));
 }
 
 .space-copy {
@@ -364,10 +405,10 @@ header .brand {
 .looking-inner h2,
 .entry-panel h2 {
   margin: 0;
-  font-size: clamp(2rem, 3.4vw, 3.5rem);
+  font-size: clamp(1.75rem, 2.7vw, 2.8rem);
   font-weight: 400;
   line-height: 1.55;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
 .space-copy p,
@@ -381,7 +422,7 @@ header .brand {
 .looking-section {
   position: relative;
   z-index: 1;
-  padding: clamp(5rem, 9vw, 8rem) 1.5rem;
+  padding: clamp(4.5rem, 7vw, 7rem) 1.5rem;
 }
 
 .looking-inner {
@@ -448,68 +489,83 @@ header .brand {
   z-index: 1;
   display: grid;
   grid-template-columns: minmax(16rem, 0.72fr) minmax(0, 1fr);
-  gap: clamp(2rem, 5vw, 5rem);
+  gap: clamp(2rem, 4vw, 4.2rem);
   align-items: stretch;
-  max-width: 1320px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: clamp(5rem, 9vw, 9rem) clamp(1.5rem, 5vw, 5rem);
+  padding: clamp(4.8rem, 7vw, 7.2rem) clamp(1.5rem, 4vw, 4rem);
 }
 
 .entry-visual {
-  min-height: 34rem;
+  position: relative;
+  min-height: 28rem;
+  max-height: 34rem;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.entry-visual::after {
+  background:
+    radial-gradient(circle at 65% 24%, rgba(255, 253, 248, 0.08), transparent 18rem),
+    linear-gradient(90deg, rgba(246, 240, 232, 0.36), rgba(246, 240, 232, 0.08) 48%, rgba(246, 240, 232, 0.32)),
+    linear-gradient(180deg, rgba(246, 240, 232, 0.28), transparent 42%, rgba(246, 240, 232, 0.3));
 }
 
 .entry-panel {
   display: grid;
   align-content: start;
   gap: 1.8rem;
-  border: 1px solid rgba(184, 154, 94, 0.52);
-  background: rgba(255, 253, 248, 0.55);
-  padding: clamp(1.5rem, 4vw, 3.5rem);
+  border-left: 1px solid rgba(184, 154, 94, 0.5);
+  background: linear-gradient(90deg, rgba(255, 253, 248, 0.42), rgba(255, 253, 248, 0));
+  padding: clamp(1.5rem, 4vw, 3.5rem) 0 clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.2rem);
 }
 
-.entry-form {
-  display: grid;
-  gap: 1.35rem;
-  margin-top: 1rem;
+.instagram-entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.4rem;
 }
 
-.form-field {
-  display: grid;
-  gap: 0.65rem;
-}
-
-.form-field span {
-  color: rgba(35, 33, 30, 0.6);
-  font-size: 0.82rem;
-  letter-spacing: 0.14em;
-}
-
-.form-field input,
-.form-field select,
-.form-field textarea {
-  width: 100%;
-  border: 0;
-  border-bottom: 1px solid rgba(35, 33, 30, 0.24);
-  border-radius: 0;
-  background: rgba(246, 240, 232, 0.56);
+.instagram-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.72rem;
+  min-height: 3rem;
+  border: 1px solid rgba(35, 33, 30, 0.22);
+  background: rgba(255, 253, 248, 0.44);
   color: #23211e;
-  font: inherit;
-  line-height: 1.5;
-  outline: none;
-  padding: 0.9rem 0.8rem;
-  transition: border-color 200ms ease, background 200ms ease;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  padding: 0.9rem 1.35rem;
+  transition: border-color 220ms ease, background 220ms ease, transform 220ms ease;
 }
 
-.form-field textarea {
-  resize: vertical;
+.instagram-button:hover,
+.instagram-button:focus-visible {
+  border-color: rgba(184, 154, 94, 0.82);
+  background: rgba(255, 253, 248, 0.72);
+  transform: translateY(-2px);
 }
 
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus {
-  border-color: #b89a5e;
-  background: rgba(255, 253, 248, 0.82);
+.instagram-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.55;
+}
+
+.instagram-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.dm-button {
+  width: auto;
+  letter-spacing: 0.12em;
 }
 
 .site-footer {
@@ -546,7 +602,8 @@ header .brand {
 
   .hero-section {
     min-height: auto;
-    padding-top: 2rem;
+    padding-top: 2.5rem;
+    padding-bottom: clamp(3rem, 9vw, 5rem);
     max-width: 100%;
     overflow: hidden;
   }
@@ -561,7 +618,9 @@ header .brand {
     writing-mode: horizontal-tb;
     max-width: 100%;
     width: 100%;
-    font-size: clamp(2.25rem, 10vw, 4rem);
+    font-size: clamp(2.1rem, 7vw, 3rem);
+    line-height: 1.38;
+    letter-spacing: 0.04em;
     overflow-wrap: anywhere;
     word-break: break-all;
   }
@@ -573,6 +632,32 @@ header .brand {
   .hero-photo img {
     aspect-ratio: 4 / 5;
     width: 100%;
+  }
+
+  .message-section,
+  .work-section,
+  .requirements-section,
+  .looking-section,
+  .space-section,
+  .entry-section {
+    padding-top: clamp(4rem, 10vw, 6rem);
+    padding-bottom: clamp(4rem, 10vw, 6rem);
+  }
+
+  .space-section,
+  .entry-section {
+    gap: clamp(2rem, 7vw, 3.5rem);
+  }
+
+  .space-photo {
+    max-width: 100%;
+    height: clamp(18rem, 58vw, 30rem);
+  }
+
+  .space-copy h2,
+  .looking-inner h2,
+  .entry-panel h2 {
+    font-size: clamp(1.75rem, 5.2vw, 2.55rem);
   }
 
   .vertical-message {
@@ -616,7 +701,7 @@ header .brand {
   }
 
   .hero-copy h1 {
-    font-size: clamp(1.75rem, 8vw, 2.1rem);
+    font-size: clamp(1.75rem, 8vw, 2.15rem);
     line-height: 1.42;
     letter-spacing: 0.02em;
   }

@@ -1,412 +1,240 @@
-const assetPath = "/assets/";
+import { useEffect } from "react";
 
-const links = {
-  line: "https://line.me/R/ti/p/@lumiere-lp",
-  tel: "tel:0312345678",
-  instagram: "https://www.instagram.com/",
-  map: "https://www.google.com/maps?q=Tokyo%20Station&output=embed",
+const INSTAGRAM_URL = "https://www.instagram.com/";
+
+const workStyles = [
+  ["マンツーマン接客", "お客様と丁寧に向き合える"],
+  ["ヘアショー + 撮影", "感性を形にする活動"],
+  ["SNS・発信", "自分の世界観を育てる"],
+  ["シフト制", "無理なく続けられる働き方"],
+  ["個室空間", "落ち着いた施術環境"],
+  ["セミナー", "学びを積み重ねる"],
+];
+
+const benefits = [
+  ["勤務形態", "正社員 / パート / 時短勤務 相談可"],
+  ["休日", "シフト制・ライフスタイルに合わせて相談"],
+  ["教育", "技術セミナー・撮影・SNS発信をサポート"],
+  ["環境", "全席個室、マンツーマンで向き合えるサロン"],
+  ["応募", "Instagram DMより受付"],
+];
+
+const imageProps = {
+  draggable: "false",
+  onContextMenu: (event) => event.preventDefault(),
 };
 
-const navItems = [
-  { label: "Concept", href: "#concept" },
-  { label: "Service", href: "#menu" },
-  { label: "Price", href: "#pricing" },
-  { label: "Recruit", href: "#recruit" },
-  { label: "PR", href: "#pr" },
-  { label: "Contact", href: "#access" },
-];
+function LineIcon({ index }) {
+  const paths = [
+    <path key="p" d="M18 42c0-8 5-14 12-14s12 6 12 14M24 23a6 6 0 1 0 12 0 6 6 0 0 0-12 0m23 4 8-8m-4 0h4v4" />,
+    <path key="p" d="m17 18 30 30m0-30L17 48m31-24 7 3-3 7m-39 2 10-5 5 10" />,
+    <path key="p" d="M18 22h28a5 5 0 0 1 5 5v20H23a5 5 0 0 1-5-5Zm24 0 4-6m-19 6-4-6m9 18 7 7 10-13" />,
+    <path key="p" d="M18 22h34v27H18Zm0 9h34M27 16v10m16-10v10m-16 15h.1m9.9 0h.1m9.9 0h.1" />,
+    <path key="p" d="M22 42h20a9 9 0 0 0 0-18H28a8 8 0 0 0-8 8v16m26-8h8m-32 8h27" />,
+    <path key="p" d="M17 48V22h30v18H27m5-9h22m0 0-6-6m6 6-6 6M18 52h28" />,
+  ];
 
-const conceptCards = [
-  {
-    number: "01",
-    title: "余白で魅せる上質感",
-    text: "白を基調に、写真とコピーが呼吸できる余白を設計。安売り感を出さず、第一印象から信頼をつくります。",
-  },
-  {
-    number: "02",
-    title: "スマホで予約しやすい導線",
-    text: "大きなCTA、LINE予約、電話発信、Instagram、Google Mapまで迷わずつながる動線に整えます。",
-  },
-  {
-    number: "03",
-    title: "女性が憧れる世界観",
-    text: "美容学生や20〜30代女性が見て、ここに関わりたいと思える透明感と都会的な華やかさを表現します。",
-  },
-];
-
-const menuItems = [
-  {
-    name: "LPサイト制作",
-    detail: "ブランドの第一印象、サービス紹介、予約導線、FAQ、Google Mapまで含む基本制作。",
-    time: "3〜4週間",
-  },
-  {
-    name: "採用LP追加",
-    detail: "美容学生や若手女性に向けた、写真中心の採用ページをLP内に組み込みます。",
-    time: "2〜3週間",
-  },
-  {
-    name: "PR・掲載実績セクション",
-    detail: "雑誌掲載、Webメディア、セミナー登壇などを上品に見せ、信頼感を高めます。",
-    time: "1〜2週間",
-  },
-  {
-    name: "公開後改善サポート",
-    detail: "予約率、問い合わせ率、CTA位置を見ながら、月次で改善します。",
-    time: "月次",
-  },
-];
-
-const prices = [
-  {
-    plan: "Light",
-    price: "¥150,000〜",
-    lead: "まずは美しく公開したい方へ",
-    items: ["スマホ最適化", "LINE予約ボタン", "電話タップ発信", "Google Map"],
-  },
-  {
-    plan: "Brand",
-    price: "¥280,000〜",
-    lead: "世界観と予約導線を整えたい方へ",
-    items: ["構成・コピー設計", "メニュー/料金表", "スタッフ紹介", "Instagram導線"],
-    featured: true,
-  },
-  {
-    plan: "Recruit + PR",
-    price: "¥450,000〜",
-    lead: "採用・PRまで一体化したい方へ",
-    items: ["採用セクション", "PR掲載実績", "動画風オープニング", "公開後30日サポート"],
-  },
-];
-
-const recruitCards = [
-  {
-    label: "Beauty Students",
-    title: "美容学生が憧れる入口をつくる",
-    text: "スクールで見ているような透明感のある写真と、未来を想像できる言葉で採用導線を設計します。",
-  },
-  {
-    label: "Women 20s-30s",
-    title: "働く女性の感性に届くトーン",
-    text: "かわいすぎず、冷たすぎない。上品で柔らかな余白と写真で、ブランドへの期待感を高めます。",
-  },
-  {
-    label: "Creative Career",
-    title: "好きと仕事がつながる見せ方",
-    text: "技術、SNS、撮影、接客、PRなど、成長できる環境を美しく伝えます。",
-  },
-];
-
-const prItems = [
-  { type: "Magazine", title: "美容・ライフスタイル誌 掲載", note: "ブランドの世界観と実績をコンパクトに紹介。" },
-  { type: "Web Media", title: "女性起業家向けWebメディア", note: "LP改善や予約導線のノウハウ記事を掲載。" },
-  { type: "Event", title: "美容学生向けセミナー", note: "SNS時代のブランディングと見せ方を発信。" },
-];
-
-const staff = [
-  {
-    name: "Mika",
-    role: "Brand Director",
-    text: "ブランドの言葉と写真の方向性を整理し、見た瞬間に伝わるLPへ導きます。",
-  },
-  {
-    name: "Aya",
-    role: "UI Designer",
-    text: "白い余白、ピンクゴールド、写真の重なりで女性らしい洗練を設計します。",
-  },
-  {
-    name: "Rin",
-    role: "Front-end",
-    text: "Vercelで公開しやすい静的サイトとして、軽く美しい画面に実装します。",
-  },
-];
-
-const faqs = [
-  {
-    q: "スマホ表示を最優先にできますか？",
-    a: "はい。iPhoneで読みやすい文字サイズ、押しやすいボタン、縦レイアウトを基準に設計します。",
-  },
-  {
-    q: "LINE予約やInstagram導線は入れられますか？",
-    a: "LINE予約、電話タップ発信、Instagramリンク、Google Map、お問い合わせフォームまで入れられます。",
-  },
-  {
-    q: "Vercelで公開できますか？",
-    a: "できます。静的サイトとしてdistへ出力される構成なので、VercelのOtherプリセットで公開できます。",
-  },
-];
-
-export function Header() {
   return (
-    <>
-      <header className="site-header fade-in" data-animate>
-        <a className="brand" href="#top" aria-label="Mayumi Watanabe LP Studio">
-          <img className="brand-logo" src={`${assetPath}mayumi-watanabe-logo.png`} alt="Mayumi Watanabe" />
+    <svg aria-hidden="true" viewBox="0 0 68 68" className="mx-auto h-16 w-16 fill-none stroke-ink stroke-[1.8]">
+      {paths[index]}
+      <path d="M53 18v6m-3-3h6M57 31v4m-2-2h4" className="stroke-gold" />
+    </svg>
+  );
+}
+
+function SectionLabel({ en, jp }) {
+  return (
+    <div className="section-label" data-reveal>
+      <span>{en}</span>
+      {jp && <p>{jp}</p>}
+    </div>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="instagram-icon">
+      <rect x="3.4" y="3.4" width="17.2" height="17.2" rx="5" />
+      <circle cx="12" cy="12" r="4.1" />
+      <circle cx="17.2" cy="6.8" r="1" className="instagram-dot" />
+    </svg>
+  );
+}
+
+function App() {
+  useEffect(() => {
+    document.documentElement.classList.add("reveal-ready");
+    const targets = document.querySelectorAll("[data-reveal]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.16 },
+    );
+
+    targets.forEach((target) => observer.observe(target));
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("reveal-ready");
+    };
+  }, []);
+
+  return (
+    <main className="min-h-screen overflow-hidden bg-ivory font-serifjp text-ink">
+      <div className="fixed inset-0 pointer-events-none opacity-70">
+        <div className="botanical-shadow botanical-shadow-a" />
+        <div className="botanical-shadow botanical-shadow-b" />
+      </div>
+
+      <header className="absolute left-0 right-0 top-0 z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-8 md:px-10">
+        <a className="brand" href="#top" aria-label="MiiiU recruit top">
+          MiiiU
+          <span>recruit 2026</span>
         </a>
-        <nav className="desktop-nav" aria-label="主要ナビゲーション">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href}>{item.label}</a>
-          ))}
+        <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.42em] text-ink/60 md:flex">
+          <a href="#message">Message</a>
+          <a href="#work">Work</a>
+          <a href="#entry">Entry</a>
         </nav>
-        <a className="header-line" href={links.line} target="_blank" rel="noreferrer">LINE相談</a>
       </header>
-      <div className="mobile-sticky-cta" aria-label="スマホ固定予約導線">
-        <a className="sticky-line" href={links.line} target="_blank" rel="noreferrer">LINE相談</a>
-        <a className="sticky-phone" href={links.tel}>電話する</a>
-      </div>
-    </>
-  );
-}
 
-export function OpeningMovie() {
-  return (
-    <section id="top" className="opening-movie" aria-label="ファーストビュー">
-      <div className="opening-photo fade-in" data-animate>
-        <img src={`${assetPath}hero-urban-rose-gold.png`} alt="白を基調にした都会的なLP制作イメージ" />
-      </div>
-      <div className="opening-copy fade-in-up" data-animate>
-        <p className="eyebrow">LP Design Studio</p>
-        <h1>
-          白い余白に、<br />
-          憧れが立ち上がる。
-        </h1>
-        <p>
-          美容学生や20〜30代女性が思わず惹かれる、都会的で柔らかなLPサイト。
-          ピンクゴールドの余韻と大きな写真で、予約・採用・PRまで美しくつなげます。
-        </p>
-        <div className="hero-actions">
-          <a className="primary-button" href={links.line} target="_blank" rel="noreferrer">LINEで相談する</a>
-          <a className="secondary-button" href="#concept">世界観を見る</a>
-        </div>
-      </div>
-      <div className="scroll-cue" aria-hidden="true">SCROLL</div>
-    </section>
-  );
-}
-
-export function Hero() {
-  return (
-    <section id="concept" className="concept-section">
-      <div className="concept-copy scroll-reveal" data-animate>
-        <p className="eyebrow">Concept</p>
-        <h2>
-          かわいいだけでは終わらない、<br />
-          選ばれるための女性向けLP。
-        </h2>
-        <p>
-          LONESSのような余白感、AFLOATのような柔らかい女性らしさ、
-          SHEのような洗練されたキャリア感を、LP制作サービスとして再構成しました。
-        </p>
-      </div>
-      <div className="concept-photo scroll-reveal" data-animate>
-        <img src={`${assetPath}cta-rose-tray.png`} alt="ピンクゴールドの光が入る上質なデスク" />
-      </div>
-    </section>
-  );
-}
-
-export function FeaturePanel() {
-  return (
-    <section className="section-shell airy-section scroll-reveal" data-animate>
-      <div className="concept-grid reveal-stagger" data-animate>
-        {conceptCards.map((item) => (
-          <article className="concept-card" key={item.title}>
-            <span>{item.number}</span>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function ProcessPanel() {
-  return (
-    <section id="menu" className="service-section scroll-reveal" data-animate>
-      <div className="section-shell service-inner">
-        <SectionHeader
-          kicker="Service"
-          title="集客、予約、採用、PRまでひとつの世界観で。"
-          text="スマホで見た瞬間の印象を大切にしながら、必要な導線を自然に組み込みます。"
-        />
-        <div className="menu-list">
-          {menuItems.map((item) => (
-            <article className="menu-row" key={item.name}>
-              <div>
-                <h3>{item.name}</h3>
-                <p>{item.detail}</p>
-              </div>
-              <span>{item.time}</span>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function PricingPanel() {
-  return (
-    <section id="pricing" className="section-shell scroll-reveal" data-animate>
-      <SectionHeader
-        kicker="Price"
-        title="料金プラン"
-        text="白基調の上品なLPから、採用・PRまで含むブランドサイト型LPまで対応します。"
-      />
-      <div className="price-grid">
-        {prices.map((plan) => (
-          <article className={`pricing-card ${plan.featured ? "featured" : ""}`} key={plan.plan}>
-            {plan.featured && <p className="badge">人気</p>}
-            <h3>{plan.plan}</h3>
-            <p className="plan-best">{plan.lead}</p>
-            <strong>{plan.price}</strong>
-            <ul>
-              {plan.items.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-            <a href={links.line} target="_blank" rel="noreferrer">このプランを相談</a>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function RecruitPanel() {
-  return (
-    <section id="recruit" className="recruit-section scroll-reveal" data-animate>
-      <div className="recruit-photo">
-        <img src={`${assetPath}hero-urban-rose-gold.png`} alt="都会的な美容系リクルートサイトのイメージ" />
-      </div>
-      <div className="section-shell recruit-inner">
-        <div className="recruit-heading">
-          <p className="eyebrow">Recruit</p>
-          <h2>ここで働く未来が、少し先の憧れになる。</h2>
+      <section id="top" className="hero-section">
+        <div className="hero-copy" data-reveal>
+          <p className="eyebrow">MiiiU recruit 2026</p>
+          <h1>
+            お客様に選ばれ続ける<span className="mobile-break"><br /></span>美容師へ
+          </h1>
+          <div className="hero-actions">
+            <a className="gold-button" href="#entry">ENTRY</a>
+            <a className="text-link" href="#message">MiiiUを知る</a>
+          </div>
           <p>
-            大きな写真、透明感のある余白、柔らかいコピーで、美容学生や若手女性に届く採用導線を付属させました。
+            自分らしく、長く、美容師を続けられる場所。温かさと上質さが共存する空間で、
+            感性を磨きながら、お客様と丁寧に向き合えます。
           </p>
         </div>
-        <div className="recruit-grid reveal-stagger" data-animate>
-          {recruitCards.map((card) => (
-            <article className="recruit-card" key={card.title}>
-              <p>{card.label}</p>
-              <h3>{card.title}</h3>
-              <span>{card.text}</span>
+        <figure className="hero-photo" data-reveal>
+          <img src="/assets/photos/recruit-hero-grid.png" alt="MiiiUのヘアスタイルイメージ" {...imageProps} />
+          <figcaption>1 / 6</figcaption>
+        </figure>
+      </section>
+
+      <section id="message" className="message-section" data-reveal>
+        <div className="mx-auto grid max-w-6xl gap-16 px-6 md:grid-cols-[0.9fr_1.1fr] md:px-10">
+          <SectionLabel en="MESSAGE" jp="recruit message" />
+          <div className="vertical-message" data-reveal>
+            <p>
+              高級感は大切にしたい。
+              <br />
+              でも、敷居の高い場所にはしたくない。
+              <br />
+              お店をつくるとき、私が目指したのは、
+              <br />
+              お客様が気負わずに足を運べる場所でした。
+              <br />
+              温かさと上質さが共存する空間で、
+              <br />
+              日常に寄り添いながら、少しだけ特別な時間を過ごせる。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="work" className="work-section" data-reveal>
+        <SectionLabel en="WORK STYLE" jp="自分らしく働ける環境" />
+        <div className="work-grid" data-reveal>
+          {workStyles.map(([title, text], index) => (
+            <article key={title} className="work-item">
+              <LineIcon index={index} />
+              <h3>{title}</h3>
+              <p>{text}</p>
             </article>
           ))}
         </div>
-        <div className="recruit-entry">
-          <div>
-            <p className="eyebrow">Entry</p>
-            <h3>募集職種</h3>
-            <p>LPデザイナー / フロントエンド実装 / SNS導線プランナー / コピーライター</p>
-          </div>
-          <a className="primary-button" href="#access">採用について問い合わせる</a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function PrPanel() {
-  return (
-    <section id="pr" className="section-shell pr-section scroll-reveal" data-animate>
-      <SectionHeader
-        kicker="Press / PR"
-        title="雑誌掲載やメディア実績を、品よく見せる。"
-        text="掲載実績やイベント登壇を整理し、ブランドとしての信頼と憧れを高めます。"
-      />
-      <div className="pr-grid">
-        {prItems.map((item) => (
-          <article className="pr-card" key={item.title}>
-            <p>{item.type}</p>
-            <h3>{item.title}</h3>
-            <span>{item.note}</span>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function FaqPanel() {
-  return (
-    <section id="staff" className="section-shell staff-section scroll-reveal" data-animate>
-      <SectionHeader
-        kicker="Team"
-        title="写真、言葉、導線を一緒に整えるチーム。"
-        text="ブランド設計からスマホ実装まで、女性向けサービスに必要な見せ方を整えます。"
-      />
-      <div className="staff-grid">
-        {staff.map((member) => (
-          <article className="staff-card" key={member.name}>
-            <div className="staff-avatar">{member.name.slice(0, 1)}</div>
-            <p>{member.role}</p>
-            <h3>{member.name}</h3>
-            <span>{member.text}</span>
-          </article>
-        ))}
-      </div>
-      <div className="faq-box">
-        <h3>よくある質問</h3>
-        {faqs.map((faq) => (
-          <details key={faq.q}>
-            <summary>{faq.q}</summary>
-            <p>{faq.a}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function ContactStrip() {
-  return (
-    <section id="access" className="access-section scroll-reveal" data-animate>
-      <div className="access-copy">
-        <p className="eyebrow">Contact</p>
-        <h2>まずは、今の世界観と予約導線を見せてください。</h2>
-        <p>
-          LINE相談、電話、お問い合わせフォームからご連絡いただけます。Instagramや既存サイトがある場合は、
-          その雰囲気に合わせて上品に再設計します。
+        <p className="work-note" data-reveal>
+          自分らしく、長く、美容師を続けられる環境を整えています。
         </p>
-        <div className="contact-buttons">
-          <a className="primary-button" href={links.line} target="_blank" rel="noreferrer">LINEで相談する</a>
-          <a className="secondary-button" href={links.tel}>03-1234-5678</a>
-          <a className="text-link" href={links.instagram} target="_blank" rel="noreferrer">Instagramを見る</a>
+      </section>
+
+      <section id="space" className="space-section" data-reveal>
+        <figure className="space-photo" data-reveal>
+          <img src="/assets/photos/salon-space-bright.png" alt="MiiiUの個室サロン空間" {...imageProps} />
+        </figure>
+        <div className="space-copy" data-reveal>
+          <SectionLabel en="SALON SPACE" jp="private room" />
+          <h2>お客様に寄り添い、感性を磨く個室空間。</h2>
+          <p>
+            1対1で向き合える落ち着いた施術環境。白と木、自然光が調和する空間で、
+            技術だけではなく人としても成長できる時間を大切にしています。
+          </p>
         </div>
-        <form className="contact-form" aria-label="お問い合わせフォーム">
-          <input aria-label="お名前" name="name" placeholder="お名前" />
-          <input aria-label="メールアドレス" name="email" type="email" placeholder="メールアドレス" />
-          <textarea aria-label="お問い合わせ内容" name="message" rows="4" placeholder="お問い合わせ内容" />
-          <button type="button">問い合わせ内容を送る</button>
-        </form>
-      </div>
-      <div className="map-card">
-        <iframe title="Google Map" src={links.map} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-      </div>
-    </section>
+      </section>
+
+      <section className="looking-section" data-reveal>
+        <div className="looking-inner" data-reveal>
+          <p className="eyebrow">WE ARE LOOKING FOR...</p>
+          <h2>こんな方と働きたい。</h2>
+          <ul>
+            <li>お客様と丁寧に向き合いたい方</li>
+            <li>感性を磨き続けたい方</li>
+            <li>美容を本気で楽しみたい方</li>
+            <li>関わる人を大切にできる方</li>
+            <li>長く美容師を続けていきたい方</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="requirements" className="requirements-section" data-reveal>
+        <SectionLabel en="REQUIREMENTS" jp="募集要項" />
+        <div className="requirements-table" data-reveal>
+          {benefits.map(([label, value]) => (
+            <dl key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </dl>
+          ))}
+        </div>
+      </section>
+
+      <section id="entry" className="entry-section">
+        <div className="entry-visual" data-reveal>
+          <img src="/assets/photos/entry-vase.png" alt="MiiiUのエントリーイメージ" {...imageProps} />
+        </div>
+        <div className="entry-panel" data-reveal>
+          <SectionLabel en="ENTRY" jp="salon tour / recruit" />
+          <h2>サロン見学をご希望の方へ</h2>
+          <p>
+            MiiiUの考え方や雰囲気に共感してくださる方と、お話ししたいと考えています。
+            まずはInstagramのDMよりご連絡ください。見学希望や働き方の相談からでも大丈夫です。
+          </p>
+          <div className="instagram-entry" data-reveal>
+            <a className="instagram-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+              <InstagramIcon />
+              <span>Instagramで相談する</span>
+            </a>
+            <a className="gold-button dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+              DMで見学希望を送る
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer className="site-footer">
+        <p className="brand">
+          MiiiU
+          <span>recruit 2026</span>
+        </p>
+        <a href="https://miiiu.jp/" target="_blank" rel="noreferrer">
+          official site
+        </a>
+      </footer>
+    </main>
   );
 }
 
-export function BenefitFooter() {
-  return (
-    <footer className="site-footer">
-      <div className="footer-brand">
-        <img src={`${assetPath}mayumi-watanabe-logo.png`} alt="Mayumi Watanabe" />
-        <small>Static site ready for GitHub to Vercel. Framework Preset: Other / Output Directory: dist</small>
-      </div>
-      <a href="#top">ページ上部へ</a>
-    </footer>
-  );
-}
-
-function SectionHeader({ kicker, title, text }) {
-  return (
-    <header className="section-header">
-      <p className="eyebrow">{kicker}</p>
-      <h2>{title}</h2>
-      {text && <p>{text}</p>}
-    </header>
-  );
-}
+export default App;
