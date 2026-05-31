@@ -1,70 +1,230 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const INSTAGRAM_URL = "https://www.instagram.com/";
+const INSTAGRAM_URL = "https://www.instagram.com/miiiu_1111/";
 
-const workStyles = [
-  ["マンツーマン接客", "お客様と丁寧に向き合える"],
-  ["ヘアショー + 撮影", "感性を形にする活動"],
-  ["SNS・発信", "自分の世界観を育てる"],
-  ["シフト制", "無理なく続けられる働き方"],
-  ["個室空間", "落ち着いた施術環境"],
-  ["セミナー", "学びを積み重ねる"],
-];
-
-const benefits = [
-  ["勤務形態", "正社員 / パート / 時短勤務 相談可"],
-  ["休日", "シフト制・ライフスタイルに合わせて相談"],
-  ["教育", "技術セミナー・撮影・SNS発信をサポート"],
-  ["環境", "全席個室、マンツーマンで向き合えるサロン"],
-  ["応募", "Instagram DMより受付"],
-];
+const assets = {
+  hero: "/assets/photos/miiiu-editorial-hero.png",
+  reception: "/assets/photos/salon-reception-counter.JPG",
+  salon: "/assets/photos/salon-space-bright.png",
+  lighting: "/assets/photos/salon-spherical-light.JPG",
+  owner: "/assets/photos/owner-placeholder.png",
+  logoMark: "/assets/photos/miiiu-logo-transparent.png",
+};
 
 const imageProps = {
   draggable: "false",
   onContextMenu: (event) => event.preventDefault(),
 };
 
-function LineIcon({ index }) {
-  const paths = [
-    <path key="p" d="M18 42c0-8 5-14 12-14s12 6 12 14M24 23a6 6 0 1 0 12 0 6 6 0 0 0-12 0m23 4 8-8m-4 0h4v4" />,
-    <path key="p" d="m17 18 30 30m0-30L17 48m31-24 7 3-3 7m-39 2 10-5 5 10" />,
-    <path key="p" d="M18 22h28a5 5 0 0 1 5 5v20H23a5 5 0 0 1-5-5Zm24 0 4-6m-19 6-4-6m9 18 7 7 10-13" />,
-    <path key="p" d="M18 22h34v27H18Zm0 9h34M27 16v10m16-10v10m-16 15h.1m9.9 0h.1m9.9 0h.1" />,
-    <path key="p" d="M22 42h20a9 9 0 0 0 0-18H28a8 8 0 0 0-8 8v16m26-8h8m-32 8h27" />,
-    <path key="p" d="M17 48V22h30v18H27m5-9h22m0 0-6-6m6 6-6 6M18 52h28" />,
-  ];
+const workStyles = [
+  {
+    title: "マンツーマン接客",
+    text: "お客様一人ひとりと丁寧に向き合い、信頼を重ねていく働き方です。",
+    icon: "person",
+  },
+  {
+    title: "ヘアショー・クリエイティブ活動",
+    text: "技術だけでなく、感性を形にする機会を大切にしています。",
+    icon: "stage",
+  },
+  {
+    title: "SNS・撮影",
+    text: "自分の世界観を育て、発信する力も磨いていけます。",
+    icon: "camera",
+  },
+  {
+    title: "シフト制",
+    text: "自分らしく、長く続けられる働き方を相談できます。",
+    icon: "calendar",
+  },
+  {
+    title: "個室空間",
+    text: "落ち着いた空間で、お客様との時間に集中できます。",
+    icon: "privateRoom",
+  },
+  {
+    title: "セミナーによるスキルアップ",
+    text: "学び続けたい気持ちを支え、技術と人間性を育てます。",
+    icon: "seminar",
+  },
+];
 
-  return (
-    <svg aria-hidden="true" viewBox="0 0 68 68" className="mx-auto h-16 w-16 fill-none stroke-ink stroke-[1.8]">
-      {paths[index]}
-      <path d="M53 18v6m-3-3h6M57 31v4m-2-2h4" className="stroke-gold" />
-    </svg>
-  );
-}
+const lookingFor = [
+  "お客様と丁寧に向き合える美容師になりたい方",
+  "流れ作業ではなく、一人ひとりに寄り添う接客がしたい方",
+  "感性や技術を、自分のペースで磨いていきたい方",
+  "美容を楽しみながら、長く続けられる働き方を探している方",
+  "人との関わりを大切にしながら成長したい方",
+];
 
-function SectionLabel({ en, jp }) {
-  return (
-    <div className="section-label" data-reveal>
-      <span>{en}</span>
-      {jp && <p>{jp}</p>}
-    </div>
-  );
-}
+const recruitInfo = [
+  ["職種", "STYLIST"],
+  ["募集人数", "男性スタイリスト　1名\n女性スタイリスト　1名"],
+  ["対象", "20代〜30代"],
+  ["雇用形態", "業務委託\nまたは\n面貸し"],
+];
+
+const styleGallery = [
+  {
+    src: "/assets/photos/style-gallery-01.png",
+    label: "LONG LAYER",
+    alt: "大人女性のためのロングレイヤーヘアデザインの仮イメージ",
+  },
+  {
+    src: "/assets/photos/style-gallery-02.png",
+    label: "SOFT BOB",
+    alt: "大人女性のためのボブヘアデザインの仮イメージ",
+  },
+  {
+    src: "/assets/photos/style-gallery-03.png",
+    label: "BEIGE WAVE",
+    alt: "大人女性のためのウェーブヘアデザインの仮イメージ",
+  },
+  {
+    src: "/assets/photos/style-gallery-04.png",
+    label: "LAYERED BOB",
+    alt: "大人女性のためのレイヤーボブヘアデザインの仮イメージ",
+  },
+  {
+    src: "/assets/photos/style-gallery-05.png",
+    label: "MOCHA STRAIGHT",
+    alt: "大人女性のためのストレートヘアデザインの仮イメージ",
+  },
+];
+
+const teamMembers = [
+  {
+    name: "Stylist Rio",
+    src: "/assets/photos/team-rio.png",
+    alt: "Stylist Rioの仮スタッフ写真",
+  },
+  {
+    name: "Stylist Nene",
+    src: "/assets/photos/team-nene.png",
+    alt: "Stylist Neneの仮スタッフ写真",
+  },
+  {
+    name: "Stylist Minori",
+    src: "/assets/photos/team-minori.png",
+    alt: "Stylist Minoriの仮スタッフ写真",
+  },
+];
 
 function InstagramIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="instagram-icon">
-      <rect x="3.4" y="3.4" width="17.2" height="17.2" rx="5" />
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
       <circle cx="12" cy="12" r="4.1" />
       <circle cx="17.2" cy="6.8" r="1" className="instagram-dot" />
     </svg>
   );
 }
 
-function App() {
+function WorkIcon({ type }) {
+  const paths = {
+    person: (
+      <>
+        <circle cx="22" cy="20" r="5.5" />
+        <circle cx="43" cy="20" r="5.5" />
+        <path d="M13 45c1.4-8.2 7-13 14-13" />
+        <path d="M51 45c-1.4-8.2-7-13-14-13" />
+        <path d="M28 34c3 2.5 5 2.5 8 0" className="gold-stroke" />
+        <path d="M18 51h28" />
+      </>
+    ),
+    stage: (
+      <>
+        <path d="M14 48h36" />
+        <path d="M20 48v-7h24v7" />
+        <path d="M17 18h30" />
+        <path d="M22 18l-8 18" />
+        <path d="M42 18l8 18" />
+        <path d="M25 23l-7 14" className="gold-stroke" />
+        <path d="M39 23l7 14" className="gold-stroke" />
+        <circle cx="32" cy="18" r="4" />
+      </>
+    ),
+    camera: (
+      <>
+        <rect x="13" y="15" width="20" height="34" rx="3" />
+        <path d="M19 20h8M21 44h4" />
+        <path d="M38 29h6l2-4h6l2 4h3v18H38z" />
+        <circle cx="48" cy="38" r="5.3" />
+        <path d="M53 17v6m-3-3h6" className="gold-stroke" />
+      </>
+    ),
+    calendar: (
+      <>
+        <rect x="13" y="17" width="32" height="30" rx="3" />
+        <path d="M13 27h32M21 12v10M37 12v10" />
+        <path d="M22 35h.1M30 35h.1" />
+        <circle cx="47" cy="45" r="9" />
+        <path d="M47 40v5l4 3" className="gold-stroke" />
+      </>
+    ),
+    privateRoom: (
+      <>
+        <path d="M14 14h36v38H14z" />
+        <path d="M32 14v38" className="gold-stroke" />
+        <path d="M22 41h17a5 5 0 0 0 0-10H28a6 6 0 0 0-6 6v9" />
+        <path d="M23 46h19M32 41v9" />
+        <path d="M43 31h3" className="gold-stroke" />
+      </>
+    ),
+    seminar: (
+      <>
+        <path d="M20 14h34v24H20z" />
+        <path d="M26 45c0-5.8 4.2-9.8 9.2-9.8s9.2 4 9.2 9.8" />
+        <circle cx="35.2" cy="29.5" r="4.5" />
+        <path d="M14 51h40" />
+        <path d="M29 22h16" className="gold-stroke" />
+        <path d="M29 28h10" />
+        <path d="M48 18v16" />
+      </>
+    ),
+  };
+
+  return (
+    <svg aria-hidden="true" viewBox="0 0 64 64" className="work-icon">
+      {paths[type]}
+    </svg>
+  );
+}
+
+function SectionHeading({ eyebrow, title, align = "left" }) {
+  return (
+    <div className={`section-heading ${align === "center" ? "center" : ""}`} data-reveal>
+      <p>{eyebrow}</p>
+      <h2>{title}</h2>
+    </div>
+  );
+}
+
+function InstagramButton({ children, variant = "primary" }) {
+  return (
+    <a
+      className={`instagram-cta ${variant}`}
+      href={INSTAGRAM_URL}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`${children} Instagramを新しいタブで開く`}
+    >
+      <InstagramIcon />
+      <span>{children}</span>
+    </a>
+  );
+}
+
+function useRevealAnimation() {
   useEffect(() => {
     document.documentElement.classList.add("reveal-ready");
-    const targets = document.querySelectorAll("[data-reveal]");
+    const targets = Array.from(document.querySelectorAll("[data-reveal]"));
+
+    if (!("IntersectionObserver" in window)) {
+      targets.forEach((target) => target.classList.add("is-visible"));
+      return () => document.documentElement.classList.remove("reveal-ready");
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -74,167 +234,386 @@ function App() {
           }
         });
       },
-      { threshold: 0.16 },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
     );
 
     targets.forEach((target) => observer.observe(target));
+
     return () => {
       observer.disconnect();
       document.documentElement.classList.remove("reveal-ready");
     };
   }, []);
+}
 
+function useBackToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setVisible(window.scrollY > window.innerHeight * 0.9);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return visible;
+}
+
+function Hero() {
   return (
-    <main className="min-h-screen overflow-hidden bg-ivory font-serifjp text-ink">
-      <div className="fixed inset-0 pointer-events-none opacity-70">
-        <div className="botanical-shadow botanical-shadow-a" />
-        <div className="botanical-shadow botanical-shadow-b" />
+    <section id="top" className="hero-section">
+      <img className="brand-watermark hero-logo-watermark" src={assets.logoMark} alt="" aria-hidden="true" />
+      <div className="hero-media" data-reveal>
+        <img
+          src={assets.hero}
+          alt="MiiiUリクルートサイト用のヘアスタイルイメージ"
+          fetchPriority="high"
+          {...imageProps}
+        />
+        <p>recruit visual</p>
       </div>
 
-      <header className="absolute left-0 right-0 top-0 z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-8 md:px-10">
+      <div className="hero-copy" data-reveal>
+        <p className="eyebrow">MiiiU recruit 2026</p>
+        <h1>お客様に選ばれ続ける美容師へ</h1>
+        <div className="hero-support">
+          <p className="hero-lead">本当の“美しさ”は、信頼から。</p>
+          <p>
+            自分らしく、長く、美容師を続けられる場所。温かさと上質さが共存する空間で、
+            感性を磨きながら、お客様と丁寧に向き合えます。
+          </p>
+          <div className="hero-actions">
+            <InstagramButton variant="primary">Instagramを見る</InstagramButton>
+            <InstagramButton variant="secondary">DMで相談する</InstagramButton>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Concept() {
+  return (
+    <section id="concept" className="concept-section">
+      <div className="concept-frame" data-reveal>
+        <p className="eyebrow">CONCEPT</p>
+        <h2>お客様と本当に向き合う</h2>
+        <p>
+          MiiiUが大切にしているのは、技術だけではなく、その人に寄り添う姿勢です。
+          一対一で丁寧に向き合い、信頼を重ねながら、日常の中に少しだけ特別な時間を届ける。
+          そんな美容師であり続けたいと考えています。
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function Message() {
+  return (
+    <section id="message" className="message-section">
+      <img className="brand-watermark message-logo-watermark" src={assets.logoMark} alt="" aria-hidden="true" />
+      <SectionHeading eyebrow="OWNER MESSAGE" title="高級感だけではなく、温かさを。" />
+      <div className="message-content">
+        <figure className="owner-photo" data-reveal>
+          <img src={assets.owner} alt="オーナーメッセージ用の仮写真" {...imageProps} />
+          <figcaption>OWNER IMAGE</figcaption>
+        </figure>
+        <div className="message-body" data-reveal>
+          <p>
+            高級感は大切にしたい。でも、敷居の高い場所にはしたくない。
+            お店をつくるとき、私が目指したのは、お客様が気負わずに足を運べる場所でした。
+          </p>
+          <p>
+            温かさと上質さが共存する空間で、日常に寄り添いながら、
+            少しだけ特別な時間を過ごせる。MiiiUは、そんなサロンでありたいと思っています。
+          </p>
+          <p>
+            同じ想いを持ち、お客様と丁寧に向き合いながら感性を磨き続けたい方と、
+            これからのMiiiUを一緒につくっていきたいです。
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SalonSpace() {
+  return (
+    <section id="space" className="space-section">
+      <div className="space-visuals" data-reveal>
+        <figure className="space-reception-photo">
+          <img src={assets.reception} alt="MiiiUの受付カウンター" {...imageProps} />
+        </figure>
+        <img className="brand-watermark space-logo-mark" src={assets.logoMark} alt="" aria-hidden="true" />
+      </div>
+      <div className="space-copy" data-reveal>
+        <SectionHeading eyebrow="SALON SPACE" title="お客様との時間を、大切にできる場所。" />
+        <p>
+          MiiiUは、個室のように落ち着いた空間で、お客様一人ひとりと丁寧に向き合うことを大切にしています。
+        </p>
+        <p>
+          周囲を気にせず、目の前のお客様の悩みや理想に耳を傾けられること。
+          その積み重ねが、信頼される美容師としての成長につながると考えています。
+        </p>
+        <p>
+          ここでは、流れ作業のように数をこなすのではなく、一人のお客様との時間を大切にしながら、
+          美容師としての感性を磨いていけます。
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function OurTeam() {
+  return (
+    <section id="team" className="team-section">
+      <div className="team-head" data-reveal>
+        <SectionHeading
+          eyebrow="OUR TEAM"
+          title={
+            <>
+              共に学び、
+              <br />
+              共に成長する仲間たち。
+            </>
+          }
+        />
+      </div>
+      <div className="team-grid" data-reveal>
+        {teamMembers.map((member) => (
+          <article className="team-card" key={member.name}>
+            <figure>
+              <img src={member.src} alt={member.alt} {...imageProps} />
+            </figure>
+            <p>{member.name}</p>
+            <span>STAFF IMAGE</span>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function RecruitInformation() {
+  return (
+    <section id="recruit-info" className="recruit-info-section">
+      <div className="recruit-info-copy" data-reveal>
+        <SectionHeading eyebrow="RECRUIT INFORMATION" title="新しい仲間を募集しています。" />
+        <p>
+          MiiiUでは、お客様一人ひとりと丁寧に向き合いたいスタイリストを募集しています。
+        </p>
+        <p>
+          技術だけではなく、人との関わりを大切にできる方を歓迎します。
+        </p>
+        <dl className="recruit-info-list">
+          {recruitInfo.map(([label, value]) => (
+            <div className="recruit-info-item" key={label}>
+              <dt>{label}</dt>
+              <dd>
+                {value.split("\n").map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <figure className="recruit-info-photo" data-reveal>
+        <img src={assets.lighting} alt="MiiiU店内の球体照明" {...imageProps} />
+        <figcaption>SALON SCENE</figcaption>
+      </figure>
+    </section>
+  );
+}
+
+function StyleGallery() {
+  const galleryRef = useRef(null);
+  const dragRef = useRef({ active: false, startX: 0, scrollLeft: 0 });
+
+  const scrollGallery = (direction) => {
+    galleryRef.current?.scrollBy({
+      left: direction * 340,
+      behavior: "smooth",
+    });
+  };
+
+  const startDrag = (event) => {
+    if (!galleryRef.current || event.pointerType === "touch") return;
+    dragRef.current = {
+      active: true,
+      startX: event.clientX,
+      scrollLeft: galleryRef.current.scrollLeft,
+    };
+    galleryRef.current.setPointerCapture(event.pointerId);
+    galleryRef.current.dataset.dragging = "true";
+  };
+
+  const moveDrag = (event) => {
+    if (!dragRef.current.active || !galleryRef.current) return;
+    const delta = event.clientX - dragRef.current.startX;
+    galleryRef.current.scrollLeft = dragRef.current.scrollLeft - delta;
+  };
+
+  const endDrag = (event) => {
+    if (!galleryRef.current) return;
+    dragRef.current.active = false;
+    galleryRef.current.releasePointerCapture?.(event.pointerId);
+    delete galleryRef.current.dataset.dragging;
+  };
+
+  return (
+    <section id="style-gallery" className="style-gallery-section">
+      <div className="style-gallery-head" data-reveal>
+        <SectionHeading
+          eyebrow="STYLE GALLERY"
+          title={
+            <>
+              MiiiUが大切にしている
+              <br />
+              大人女性のためのヘアデザイン。
+            </>
+          }
+        />
+        <div className="gallery-controls" aria-label="STYLE GALLERY carousel controls">
+          <button type="button" onClick={() => scrollGallery(-1)} aria-label="前のスタイルを見る">
+            ←
+          </button>
+          <button type="button" onClick={() => scrollGallery(1)} aria-label="次のスタイルを見る">
+            →
+          </button>
+        </div>
+      </div>
+
+      <div
+        className="style-gallery-track"
+        ref={galleryRef}
+        data-reveal
+        onPointerDown={startDrag}
+        onPointerMove={moveDrag}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onPointerLeave={endDrag}
+      >
+        {styleGallery.map((item, index) => (
+          <figure className="style-card" key={item.src}>
+            <img src={item.src} alt={item.alt} {...imageProps} />
+            <figcaption>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              {item.label}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function WorkStyle() {
+  return (
+    <section id="work" className="work-section">
+      <SectionHeading eyebrow="WORK STYLE" title="自分らしく、長く続けられる環境" align="center" />
+      <div className="work-grid" data-reveal>
+        {workStyles.map((item) => (
+          <article className="work-item" key={item.title}>
+            <WorkIcon type={item.icon} />
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function LookingFor() {
+  return (
+    <section id="looking" className="looking-section">
+      <div className="looking-inner" data-reveal>
+        <p className="eyebrow">WE ARE LOOKING FOR...</p>
+        <h2>こんな想いを持つ方と、働きたい。</h2>
+        <ul>
+          {lookingFor.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <p className="looking-note">
+          今の技術や経験だけで判断するのではなく、どんな美容師になりたいかという想いを大切にしたいと考えています。
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function Entry() {
+  return (
+    <section id="entry" className="entry-section">
+      <div className="entry-copy" data-reveal>
+        <SectionHeading eyebrow="ENTRY" title="サロン見学をご希望の方へ" />
+        <p>
+          <span>まずはInstagramの投稿やハイライトをご覧いただき、</span>
+          <span>MiiiUの考え方や雰囲気に共感してくださる方のみ、</span>
+          <span>DMよりご連絡をお願いいたします。</span>
+        </p>
+        <p>
+          <span>見学希望、働き方の相談、</span>
+          <span>少し話を聞いてみたいという段階でも大丈夫です。</span>
+          <span>お互いを大切にできる出会いを、</span>
+          <span>丁寧に重ねていきたいと考えています。</span>
+        </p>
+        <InstagramButton variant="entry">DMで見学希望を送る</InstagramButton>
+      </div>
+    </section>
+  );
+}
+
+export default function RecruitPage() {
+  const showBackToTop = useBackToTop();
+  useRevealAnimation();
+
+  return (
+    <main className="site-shell">
+      <header className="site-header">
         <a className="brand" href="#top" aria-label="MiiiU recruit top">
           MiiiU
           <span>recruit 2026</span>
         </a>
-        <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.42em] text-ink/60 md:flex">
+        <nav aria-label="ページ内ナビゲーション">
+          <a href="#concept">Concept</a>
           <a href="#message">Message</a>
           <a href="#work">Work</a>
           <a href="#entry">Entry</a>
         </nav>
       </header>
 
-      <section id="top" className="hero-section">
-        <div className="hero-copy" data-reveal>
-          <p className="eyebrow">MiiiU recruit 2026</p>
-          <h1>
-            お客様に選ばれ続ける<span className="mobile-break"><br /></span>美容師へ
-          </h1>
-          <div className="hero-actions">
-            <a className="gold-button" href="#entry">ENTRY</a>
-            <a className="text-link" href="#message">MiiiUを知る</a>
-          </div>
-          <p>
-            自分らしく、長く、美容師を続けられる場所。温かさと上質さが共存する空間で、
-            感性を磨きながら、お客様と丁寧に向き合えます。
-          </p>
-        </div>
-        <figure className="hero-photo" data-reveal>
-          <img src="/assets/photos/recruit-hero-grid.png" alt="MiiiUのヘアスタイルイメージ" {...imageProps} />
-          <figcaption>1 / 6</figcaption>
-        </figure>
-      </section>
-
-      <section id="message" className="message-section" data-reveal>
-        <div className="mx-auto grid max-w-6xl gap-16 px-6 md:grid-cols-[0.9fr_1.1fr] md:px-10">
-          <SectionLabel en="MESSAGE" jp="recruit message" />
-          <div className="vertical-message" data-reveal>
-            <p>
-              高級感は大切にしたい。
-              <br />
-              でも、敷居の高い場所にはしたくない。
-              <br />
-              お店をつくるとき、私が目指したのは、
-              <br />
-              お客様が気負わずに足を運べる場所でした。
-              <br />
-              温かさと上質さが共存する空間で、
-              <br />
-              日常に寄り添いながら、少しだけ特別な時間を過ごせる。
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="work" className="work-section" data-reveal>
-        <SectionLabel en="WORK STYLE" jp="自分らしく働ける環境" />
-        <div className="work-grid" data-reveal>
-          {workStyles.map(([title, text], index) => (
-            <article key={title} className="work-item">
-              <LineIcon index={index} />
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </article>
-          ))}
-        </div>
-        <p className="work-note" data-reveal>
-          自分らしく、長く、美容師を続けられる環境を整えています。
-        </p>
-      </section>
-
-      <section id="space" className="space-section" data-reveal>
-        <figure className="space-photo" data-reveal>
-          <img src="/assets/photos/salon-space-bright.png" alt="MiiiUの個室サロン空間" {...imageProps} />
-        </figure>
-        <div className="space-copy" data-reveal>
-          <SectionLabel en="SALON SPACE" jp="private room" />
-          <h2>お客様に寄り添い、感性を磨く個室空間。</h2>
-          <p>
-            1対1で向き合える落ち着いた施術環境。白と木、自然光が調和する空間で、
-            技術だけではなく人としても成長できる時間を大切にしています。
-          </p>
-        </div>
-      </section>
-
-      <section className="looking-section" data-reveal>
-        <div className="looking-inner" data-reveal>
-          <p className="eyebrow">WE ARE LOOKING FOR...</p>
-          <h2>こんな方と働きたい。</h2>
-          <ul>
-            <li>お客様と丁寧に向き合いたい方</li>
-            <li>感性を磨き続けたい方</li>
-            <li>美容を本気で楽しみたい方</li>
-            <li>関わる人を大切にできる方</li>
-            <li>長く美容師を続けていきたい方</li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="requirements" className="requirements-section" data-reveal>
-        <SectionLabel en="REQUIREMENTS" jp="募集要項" />
-        <div className="requirements-table" data-reveal>
-          {benefits.map(([label, value]) => (
-            <dl key={label}>
-              <dt>{label}</dt>
-              <dd>{value}</dd>
-            </dl>
-          ))}
-        </div>
-      </section>
-
-      <section id="entry" className="entry-section">
-        <div className="entry-visual" data-reveal>
-          <img src="/assets/photos/entry-vase.png" alt="MiiiUのエントリーイメージ" {...imageProps} />
-        </div>
-        <div className="entry-panel" data-reveal>
-          <SectionLabel en="ENTRY" jp="salon tour / recruit" />
-          <h2>サロン見学をご希望の方へ</h2>
-          <p>
-            MiiiUの考え方や雰囲気に共感してくださる方と、お話ししたいと考えています。
-            まずはInstagramのDMよりご連絡ください。見学希望や働き方の相談からでも大丈夫です。
-          </p>
-          <div className="instagram-entry" data-reveal>
-            <a className="instagram-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-              <InstagramIcon />
-              <span>Instagramで相談する</span>
-            </a>
-            <a className="gold-button dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-              DMで見学希望を送る
-            </a>
-          </div>
-        </div>
-      </section>
+      <Hero />
+      <Concept />
+      <Message />
+      <SalonSpace />
+      <OurTeam />
+      <StyleGallery />
+      <WorkStyle />
+      <LookingFor />
+      <RecruitInformation />
+      <Entry />
 
       <footer className="site-footer">
         <p className="brand">
           MiiiU
           <span>recruit 2026</span>
         </p>
-        <a href="https://miiiu.jp/" target="_blank" rel="noreferrer">
-          official site
-        </a>
+        <div>
+          <a href="https://miiiu.jp/" target="_blank" rel="noreferrer">official site</a>
+          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">instagram</a>
+        </div>
       </footer>
+
+      <a className={`back-to-top ${showBackToTop ? "visible" : ""}`} href="#top" aria-label="ページ上部へ戻る">
+        ↑
+      </a>
     </main>
   );
 }
-
-export default App;

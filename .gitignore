@@ -2,7 +2,9 @@ node_modules/
 dist/
 .vite/
 .edge-verify/
+.edge-*/
 *.log
 desktop-check.png
 mobile-check.png
+layout-*.png
 verification-result.json

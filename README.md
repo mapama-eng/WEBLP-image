@@ -131,6 +131,16 @@ npm run build
 
 同じファイル名で画像を差し替えると、コードを変更せずにサイト上の画像を変更できます。
 
+## Instagramリンクの差し替えについて
+
+Instagramのリンク先は `src/App.jsx` の先頭付近にある `INSTAGRAM_URL` で管理しています。
+
+正式なMiiiUアカウントURLが決まったら、以下のURLだけを差し替えてください。
+
+```js
+const INSTAGRAM_URL = "https://www.instagram.com/";
+```
+
 ## 注意点
 
 - `node_modules` は ZIP に含めていません。解凍後に必ず `npm install` を実行してください。
