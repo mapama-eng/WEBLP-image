@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const INSTAGRAM_URL = "https://www.instagram.com/miiiu_1111/";
+const JBC_URL = "https://jbc-web.info/miiiu-4/";
 
 const assets = {
   hero: "/assets/photos/miiiu-editorial-hero.png",
@@ -58,10 +59,34 @@ const lookingFor = [
 ];
 
 const recruitInfo = [
-  ["職種", "STYLIST"],
-  ["募集人数", "男性スタイリスト　1名\n女性スタイリスト　1名"],
-  ["対象", "20代〜30代"],
-  ["雇用形態", "業務委託\nまたは\n面貸し"],
+  ["雇用形態", "業務委託"],
+  ["平均単価", "11,000円"],
+  ["技術売上", "50〜60％\n例）売上100万円 → 50〜60万円"],
+  ["店販売上", "10％"],
+  ["ECサイト売上", "10％"],
+  ["その他", "条件交渉可"],
+];
+
+const recruitWelcome = [
+  "お客様と真剣に向き合いたい方",
+  "技術だけでなく、人としても成長したい方",
+  "新しいことにチャレンジしたい方",
+  "落ち着いた上質な空間で働きたい方",
+];
+
+const activityItems = [
+  {
+    title: "Hair Show Activity",
+    text: "サロンワークだけでなく、表現の場も大切にするサロン。",
+    src: assets.salon,
+    alt: "MiiiUのクリエイティブ活動を表すサロンイメージ",
+  },
+  {
+    title: "Japan Brand Collection",
+    text: "Japan Brand Collection 宮城・山形版に3年連続掲載。",
+    src: assets.lighting,
+    alt: "MiiiUの掲載実績を表すサロンイメージ",
+  },
 ];
 
 const styleGallery = [
@@ -555,17 +580,59 @@ function SeoIntro() {
   );
 }
 
+function ActivitySection() {
+  return (
+    <section id="activity" className="activity-section">
+      <div className="activity-copy" data-reveal>
+        <SectionHeading eyebrow="ACTIVITY" title="サロンワークの先に広がる、表現の場" />
+        <p>
+          MiiiUでは、日々のサロンワークだけでなく、ヘアショーなどのクリエイティブな活動にも取り組んでいます。
+          技術を磨くだけでなく、美容師としての感性や表現力を広げられる機会があることも、MiiiUの魅力のひとつです。
+        </p>
+        <p>
+          また、MiiiUは「Japan Brand Collection 宮城・山形版」に3年連続で掲載されています。
+          地域の中でも上質なサロンとして選ばれ続けていることを、採用ページ内でも上品に伝えます。
+        </p>
+        <a className="activity-link" href={JBC_URL} target="_blank" rel="noreferrer">
+          Japan Brand Collection 掲載ページを見る
+        </a>
+      </div>
+
+      <div className="activity-grid" data-reveal>
+        {activityItems.map((item) => (
+          <article className="activity-card" key={item.title}>
+            <figure>
+              <img src={item.src} alt={item.alt} {...imageProps} />
+            </figure>
+            <div>
+              <span>{item.title}</span>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function RecruitInformation() {
   return (
     <section id="recruit-info" className="recruit-info-section">
       <div className="recruit-info-copy" data-reveal>
         <SectionHeading eyebrow="RECRUIT INFORMATION" title="新しい仲間を募集しています。" />
         <p>
-          MiiiUでは、お客様一人ひとりと丁寧に向き合いたいスタイリストを募集しています。
+          MiiiUでは、これからのサロンを一緒に育ててくれる新しい仲間を募集しています。
         </p>
         <p>
-          技術だけではなく、人との関わりを大切にできる方を歓迎します。
+          お客様一人ひとりに丁寧に向き合いながら、似合わせカット、ツヤ感・透明感カラー、髪質改善を中心に、
+          長く信頼される美容師として成長できる環境を大切にしています。
         </p>
+        <ul className="recruit-welcome-list">
+          {recruitWelcome.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <p>そんな想いを持つ方を歓迎します。</p>
         <dl className="recruit-info-list">
           {recruitInfo.map(([label, value]) => (
             <div className="recruit-info-item" key={label}>
@@ -578,6 +645,10 @@ function RecruitInformation() {
             </div>
           ))}
         </dl>
+        <div className="recruit-info-entry">
+          <p>応募方法</p>
+          <span>InstagramのDMよりご連絡ください。質問だけでもお気軽にお待ちしています。</span>
+        </div>
       </div>
 
       <figure className="recruit-info-photo" data-reveal>
@@ -741,9 +812,12 @@ export default function RecruitPage() {
         </a>
         <nav aria-label="ページ内ナビゲーション">
           <a href="#concept">Concept</a>
-          <a href="#message">Message</a>
-          <a href="#work">Work</a>
-          <a href="#entry">Entry</a>
+          <a href="#message">Owner Message</a>
+          <a href="#work">Work Style</a>
+          <a href="#activity">Activity</a>
+          <a href="#recruit-info">Recruit</a>
+          <a href="#faq">FAQ</a>
+          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">Instagram</a>
         </nav>
       </header>
 
@@ -756,6 +830,7 @@ export default function RecruitPage() {
       <StaffVoices />
       <StyleGallery />
       <WorkStyle />
+      <ActivitySection />
       <DailyFlow />
       <LookingFor />
       <RecruitInformation />
