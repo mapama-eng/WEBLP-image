@@ -110,6 +110,53 @@ const teamMembers = [
   },
 ];
 
+const originStory = [
+  "MiiiUを作った理由は、過去の経験の中で「もっと一人ひとりに静かに向き合える場所があったら」と感じたことが始まりです。流れ作業のように時間が過ぎるのではなく、お客様の小さな迷いや、言葉にならない好みまで丁寧に受け止められる美容室を目指しました。",
+  "美容師として長く続けていくためには、技術だけでなく、働く人自身の感性や暮らしも大切にできる環境が必要だと考えています。MiiiUは、お客様にもスタッフにも無理な強さを求めず、穏やかに成長していける場所でありたいと思っています。",
+];
+
+const staffVoices = [
+  {
+    name: "Stylist Aoi",
+    role: "入社2年目 / スタイリスト",
+    image: "/assets/photos/team-rio.png",
+    quote:
+      "一人のお客様と向き合う時間を大切にできるので、自分の提案にも責任と楽しさを感じられます。焦らず、でも確実に成長できる空気があります。",
+  },
+  {
+    name: "Stylist Mei",
+    role: "中途入社 / スタイリスト",
+    image: "",
+    quote:
+      "前職では忙しさに追われることも多かったのですが、MiiiUでは技術も接客も丁寧に見直せています。相談しやすい距離感も安心です。",
+  },
+  {
+    name: "Assistant Rina",
+    role: "アシスタント",
+    image: "/assets/photos/team-minori.png",
+    quote:
+      "練習や学びのペースを一緒に考えてもらえるので、毎日の積み重ねが前向きになりました。お客様との会話から学ぶことも多いです。",
+  },
+];
+
+const dailyFlow = [
+  ["09:00", "出勤・店内準備", "空間を整え、予約内容や共有事項を確認します。"],
+  ["10:00", "サロンワーク開始", "カウンセリングから仕上げまで、一人ひとりに丁寧に向き合います。"],
+  ["13:00", "休憩", "予約状況に合わせて、落ち着いて休める時間を確保します。"],
+  ["14:00", "サロンワーク", "午後も目の前のお客様との時間を大切に、施術や撮影を行います。"],
+  ["18:00", "最終受付", "最後のお客様まで、丁寧なカウンセリングと仕上がりを大切にします。"],
+  ["19:00", "清掃・片付け", "店内を整え、翌日の準備や一日の振り返りを行います。"],
+  ["20:00", "退勤", "無理なく続けられるリズムを大切にしています。"],
+];
+
+const faqs = [
+  ["見学だけでも可能ですか？", "もちろん可能です。InstagramのDMより希望日時をご相談ください。まずは雰囲気を見ていただくだけでも大丈夫です。"],
+  ["業務委託未経験でも応募できますか？", "サポート体制があります。働き方や不安な点を伺いながら、無理のない形を一緒に考えます。"],
+  ["ブランクがありますが大丈夫ですか？", "お気軽にご相談ください。これまでの経験や現在の状況に合わせて、お話しできればと思います。"],
+  ["子育て中でも働けますか？", "働き方をご相談いただけます。予約状況や勤務ペースをふまえて、長く続けやすい形を一緒に探します。"],
+  ["面接前に相談できますか？", "Instagram DMよりお気軽にご連絡ください。見学希望や働き方の相談からでも大丈夫です。"],
+];
+
 function InstagramIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="instagram-icon">
@@ -211,6 +258,21 @@ function InstagramButton({ children, variant = "primary" }) {
     >
       <InstagramIcon />
       <span>{children}</span>
+    </a>
+  );
+}
+
+function FixedInstagramCta() {
+  return (
+    <a
+      className="fixed-instagram-cta"
+      href={INSTAGRAM_URL}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="InstagramのDMで見学予約する"
+    >
+      <InstagramIcon />
+      <span>DMで見学予約</span>
     </a>
   );
 }
@@ -392,6 +454,102 @@ function OurTeam() {
             <span>STAFF IMAGE</span>
           </article>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function OriginStory() {
+  return (
+    <section id="origin" className="origin-section">
+      <div className="origin-inner" data-reveal>
+        <SectionHeading eyebrow="OUR BEGINNING" title="なぜMiiiUを作ったのか" />
+        <div className="origin-body">
+          {originStory.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StaffVoices() {
+  return (
+    <section id="voices" className="voices-section">
+      <SectionHeading eyebrow="STAFF VOICE" title="スタッフの声" align="center" />
+      <div className="voice-grid" data-reveal>
+        {staffVoices.map((voice) => (
+          <article className="voice-card" key={voice.name}>
+            <figure className={`voice-photo ${voice.image ? "" : "is-empty"}`}>
+              {voice.image ? (
+                <img src={voice.image} alt={`${voice.name}のスタッフ写真`} {...imageProps} />
+              ) : (
+                <span aria-hidden="true">MiiiU</span>
+              )}
+            </figure>
+            <div>
+              <p className="voice-quote">{voice.quote}</p>
+              <p className="voice-name">{voice.name}</p>
+              <span className="voice-role">{voice.role}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function DailyFlow() {
+  return (
+    <section id="daily-flow" className="daily-flow-section">
+      <div className="daily-flow-head" data-reveal>
+        <SectionHeading eyebrow="DAILY FLOW" title="1日の流れ" />
+        <p>09:00から20:00までの一例です。予約状況に合わせながら、丁寧に一日を整えます。</p>
+      </div>
+      <ol className="daily-flow-list" data-reveal>
+        {dailyFlow.map(([time, title, text]) => (
+          <li key={time}>
+            <time>{time}</time>
+            <div>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+function FaqSection() {
+  return (
+    <section id="faq" className="faq-section">
+      <SectionHeading eyebrow="FAQ" title="よくある質問" />
+      <div className="faq-list" data-reveal>
+        {faqs.map(([question, answer]) => (
+          <details className="faq-item" key={question}>
+            <summary>{question}</summary>
+            <p>{answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SeoIntro() {
+  return (
+    <section id="yamagata-recruit" className="seo-intro-section">
+      <div className="seo-intro-inner" data-reveal>
+        <p className="eyebrow">YAMAGATA BEAUTY RECRUIT</p>
+        <h2>山形市で美容師求人を探している方へ</h2>
+        <p>
+          山形市美容師求人や山形美容室求人を探している方、落ち着いた半個室サロンでスタイリストとして働きたい方へ。MiiiUは山形市内で、お客様一人ひとりに丁寧に向き合うサロンワークを大切にしています。美容師としての技術を磨きながら、接客やヘアデザインの感性も育てていける環境です。
+        </p>
+        <p>
+          美容師転職を考えている方、業務委託美容師として自分らしい働き方を探している方、髪質改善サロンでの経験を活かしたい方にも、MiiiUの空気感を知っていただけたらと思います。スタイリスト募集や山形市求人を比較している段階でも、まずはInstagramのDMからお気軽にご相談ください。
+        </p>
       </div>
     </section>
   );
@@ -592,12 +750,17 @@ export default function RecruitPage() {
       <Hero />
       <Concept />
       <Message />
+      <OriginStory />
       <SalonSpace />
       <OurTeam />
+      <StaffVoices />
       <StyleGallery />
       <WorkStyle />
+      <DailyFlow />
       <LookingFor />
       <RecruitInformation />
+      <FaqSection />
+      <SeoIntro />
       <Entry />
 
       <footer className="site-footer">
@@ -614,6 +777,7 @@ export default function RecruitPage() {
       <a className={`back-to-top ${showBackToTop ? "visible" : ""}`} href="#top" aria-label="ページ上部へ戻る">
         ↑
       </a>
+      <FixedInstagramCta />
     </main>
   );
 }
