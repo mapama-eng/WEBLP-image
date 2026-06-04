@@ -519,8 +519,8 @@ span {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: 54% 42%;
-  filter: saturate(0.78) contrast(0.92) brightness(1.05);
+  object-position: 50% 36%;
+  filter: saturate(0.82) contrast(0.94) brightness(1.03);
 }
 
 .owner-photo figcaption {
@@ -980,6 +980,12 @@ span {
   object-fit: cover;
   object-position: center 44%;
   filter: saturate(0.78) contrast(0.92) brightness(1.04);
+}
+
+.activity-card:first-child img {
+  aspect-ratio: 4 / 4.05;
+  object-position: center 46%;
+  filter: saturate(0.72) contrast(0.9) brightness(1.04);
 }
 
 .activity-card span {

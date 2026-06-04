@@ -8,7 +8,8 @@ const assets = {
   reception: "/assets/photos/salon-reception-counter.JPG",
   salon: "/assets/photos/salon-space-bright.png",
   lighting: "/assets/photos/salon-spherical-light.JPG",
-  owner: "/assets/photos/owner-placeholder.png",
+  owner: "/images/owner.jpg",
+  hairshow: "/images/hairshow.jpg",
   logoMark: "/assets/photos/miiiu-logo-transparent.png",
 };
 
@@ -78,7 +79,7 @@ const activityItems = [
   {
     title: "Hair Show Activity",
     text: "サロンワークだけでなく、表現の場も大切にするサロン。",
-    src: assets.salon,
+    src: assets.hairshow,
     alt: "MiiiUのクリエイティブ活動を表すサロンイメージ",
   },
   {
