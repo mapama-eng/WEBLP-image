@@ -974,6 +974,16 @@ span {
   mix-blend-mode: screen;
 }
 
+.activity-image-link {
+  display: block;
+  color: inherit;
+}
+
+.activity-image-link:focus-visible {
+  outline: 1px solid rgba(184, 154, 94, 0.48);
+  outline-offset: 4px;
+}
+
 .activity-card img {
   width: 100%;
   aspect-ratio: 4 / 3.1;
@@ -986,6 +996,10 @@ span {
   aspect-ratio: 4 / 4.05;
   object-position: center 46%;
   filter: saturate(0.72) contrast(0.9) brightness(1.04);
+}
+
+.activity-card:nth-child(2) img {
+  object-position: center 50%;
 }
 
 .activity-card span {
@@ -1758,8 +1772,8 @@ html.reveal-ready [data-reveal].is-visible,
   .hero-logo-watermark {
     left: -9%;
     top: 20%;
-    width: min(56vw, 42rem);
-    opacity: 0.09;
+    width: min(63vw, 47rem);
+    opacity: 0.102;
   }
 
   .hero-media {

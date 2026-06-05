@@ -10,6 +10,7 @@ const assets = {
   lighting: "/assets/photos/salon-spherical-light.JPG",
   owner: "/images/owner.jpg",
   hairshow: "/images/hairshow.jpg",
+  jbcCover: "/images/jbc-cover.png",
   logoMark: "/assets/photos/miiiu-logo-transparent.png",
 };
 
@@ -85,8 +86,9 @@ const activityItems = [
   {
     title: "Japan Brand Collection",
     text: "Japan Brand Collection 宮城・山形版に3年連続掲載。",
-    src: assets.lighting,
+    src: assets.jbcCover,
     alt: "MiiiUの掲載実績を表すサロンイメージ",
+    href: JBC_URL,
   },
 ];
 
@@ -366,7 +368,13 @@ function Hero() {
 
       <div className="hero-copy" data-reveal>
         <p className="eyebrow">MiiiU recruit 2026</p>
-        <h1>お客様に選ばれ続ける美容師へ</h1>
+        <h1>
+          お客様に
+          <br />
+          選ばれ続ける
+          <br />
+          美容師へ
+        </h1>
         <div className="hero-support">
           <p className="hero-lead">本当の“美しさ”は、信頼から。</p>
           <p>
@@ -594,16 +602,25 @@ function ActivitySection() {
           また、MiiiUは「Japan Brand Collection 宮城・山形版」に3年連続で掲載されています。
           地域の中でも上質なサロンとして選ばれ続けていることを、採用ページ内でも上品に伝えます。
         </p>
-        <a className="activity-link" href={JBC_URL} target="_blank" rel="noreferrer">
-          Japan Brand Collection 掲載ページを見る
-        </a>
       </div>
 
       <div className="activity-grid" data-reveal>
         {activityItems.map((item) => (
           <article className="activity-card" key={item.title}>
             <figure>
-              <img src={item.src} alt={item.alt} {...imageProps} />
+              {item.href ? (
+                <a
+                  className="activity-image-link"
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${item.title} 掲載ページを見る`}
+                >
+                  <img src={item.src} alt={item.alt} {...imageProps} />
+                </a>
+              ) : (
+                <img src={item.src} alt={item.alt} {...imageProps} />
+              )}
             </figure>
             <div>
               <span>{item.title}</span>
