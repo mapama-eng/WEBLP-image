@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const INSTAGRAM_URL = "https://www.instagram.com/miiiu_1111/";
 const JBC_URL = "https://jbc-web.info/miiiu-4/";
@@ -18,6 +18,21 @@ const imageProps = {
   draggable: "false",
   onContextMenu: (event) => event.preventDefault(),
 };
+
+const normalizeInstagramWidgetPosts = (posts = []) =>
+  posts
+    .map((post) => ({
+      src: post?.src || post?.image || post?.imageUrl || post?.thumbnail || post?.mediaUrl,
+      href: post?.href || post?.url || post?.permalink || INSTAGRAM_URL,
+      alt: post?.alt || post?.caption || "",
+    }))
+    .filter((post) => post.src)
+    .slice(0, 6)
+    .map((post, index) => ({
+      src: post.src,
+      href: post.href,
+      alt: post.alt || `MiiiUのヘアデザイン ${index + 1}`,
+    }));
 
 const workStyles = [
   {
@@ -97,26 +112,37 @@ const styleGallery = [
     src: "/assets/photos/style-gallery-01.png",
     label: "LONG LAYER",
     alt: "大人女性のためのロングレイヤーヘアデザインの仮イメージ",
+    href: INSTAGRAM_URL,
   },
   {
     src: "/assets/photos/style-gallery-02.png",
     label: "SOFT BOB",
     alt: "大人女性のためのボブヘアデザインの仮イメージ",
+    href: INSTAGRAM_URL,
   },
   {
     src: "/assets/photos/style-gallery-03.png",
     label: "BEIGE WAVE",
     alt: "大人女性のためのウェーブヘアデザインの仮イメージ",
+    href: INSTAGRAM_URL,
   },
   {
     src: "/assets/photos/style-gallery-04.png",
     label: "LAYERED BOB",
     alt: "大人女性のためのレイヤーボブヘアデザインの仮イメージ",
+    href: INSTAGRAM_URL,
   },
   {
     src: "/assets/photos/style-gallery-05.png",
     label: "MOCHA STRAIGHT",
     alt: "大人女性のためのストレートヘアデザインの仮イメージ",
+    href: INSTAGRAM_URL,
+  },
+  {
+    src: "/assets/photos/recruit-hair-visual.png",
+    label: "SOFT DESIGN",
+    alt: "MiiiUのヘアデザインの代替イメージ",
+    href: INSTAGRAM_URL,
   },
 ];
 
@@ -414,8 +440,7 @@ function Message() {
       <SectionHeading eyebrow="OWNER MESSAGE" title="高級感だけではなく、温かさを。" />
       <div className="message-content">
         <figure className="owner-photo" data-reveal>
-          <img src={assets.owner} alt="オーナーメッセージ用の仮写真" {...imageProps} />
-          <figcaption>OWNER IMAGE</figcaption>
+          <img src={assets.owner} alt="MiiiUオーナー写真" {...imageProps} />
         </figure>
         <div className="message-body" data-reveal>
           <p>
@@ -678,83 +703,51 @@ function RecruitInformation() {
 }
 
 function StyleGallery() {
-  const galleryRef = useRef(null);
-  const dragRef = useRef({ active: false, startX: 0, scrollLeft: 0 });
+  const [instagramPosts, setInstagramPosts] = useState(styleGallery);
 
-  const scrollGallery = (direction) => {
-    galleryRef.current?.scrollBy({
-      left: direction * 340,
-      behavior: "smooth",
-    });
-  };
-
-  const startDrag = (event) => {
-    if (!galleryRef.current || event.pointerType === "touch") return;
-    dragRef.current = {
-      active: true,
-      startX: event.clientX,
-      scrollLeft: galleryRef.current.scrollLeft,
+  useEffect(() => {
+    const applyWidgetPosts = (posts) => {
+      const nextPosts = normalizeInstagramWidgetPosts(posts);
+      if (nextPosts.length) {
+        setInstagramPosts(nextPosts);
+      }
     };
-    galleryRef.current.setPointerCapture(event.pointerId);
-    galleryRef.current.dataset.dragging = "true";
-  };
 
-  const moveDrag = (event) => {
-    if (!dragRef.current.active || !galleryRef.current) return;
-    const delta = event.clientX - dragRef.current.startX;
-    galleryRef.current.scrollLeft = dragRef.current.scrollLeft - delta;
-  };
+    applyWidgetPosts(window.MiiiUInstagramWidgetPosts);
 
-  const endDrag = (event) => {
-    if (!galleryRef.current) return;
-    dragRef.current.active = false;
-    galleryRef.current.releasePointerCapture?.(event.pointerId);
-    delete galleryRef.current.dataset.dragging;
-  };
+    const handleWidgetPosts = (event) => {
+      applyWidgetPosts(event.detail?.posts || event.detail);
+    };
+
+    window.addEventListener("miiiu:instagram-widget-posts", handleWidgetPosts);
+    return () => window.removeEventListener("miiiu:instagram-widget-posts", handleWidgetPosts);
+  }, []);
 
   return (
     <section id="style-gallery" className="style-gallery-section">
       <div className="style-gallery-head" data-reveal>
         <SectionHeading
-          eyebrow="STYLE GALLERY"
-          title={
-            <>
-              MiiiUが大切にしている
-              <br />
-              大人女性のためのヘアデザイン。
-            </>
-          }
+          eyebrow="HAIR DESIGN"
+          title="最新スタイルはInstagramで更新しています"
         />
-        <div className="gallery-controls" aria-label="STYLE GALLERY carousel controls">
-          <button type="button" onClick={() => scrollGallery(-1)} aria-label="前のスタイルを見る">
-            ←
-          </button>
-          <button type="button" onClick={() => scrollGallery(1)} aria-label="次のスタイルを見る">
-            →
-          </button>
-        </div>
       </div>
 
       <div
-        className="style-gallery-track"
-        ref={galleryRef}
+        className="style-gallery-grid"
         data-reveal
-        onPointerDown={startDrag}
-        onPointerMove={moveDrag}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
-        onPointerLeave={endDrag}
       >
-        {styleGallery.map((item, index) => (
+        {instagramPosts.slice(0, 6).map((item) => (
           <figure className="style-card" key={item.src}>
-            <img src={item.src} alt={item.alt} {...imageProps} />
-            <figcaption>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              {item.label}
-            </figcaption>
+            <a href={item.href || INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagramでヘアデザインを見る">
+              <img src={item.src} alt={item.alt} {...imageProps} />
+            </a>
           </figure>
         ))}
       </div>
+      <a className="instagram-cta secondary style-instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+        <InstagramIcon />
+        Instagramで他のスタイルも見る
+      </a>
     </section>
   );
 }
