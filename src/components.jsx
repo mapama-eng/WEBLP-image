@@ -11,43 +11,13 @@ const assets = {
   owner: "/images/owner.jpg",
   hairshow: "/images/hairshow.jpg",
   jbcCover: "/images/jbc-cover.png",
+  hotpepperAward: "/images/hotpepper-award.jpg",
   logoMark: "/assets/photos/miiiu-logo-transparent.png",
 };
 
 const imageProps = {
   draggable: "false",
   onContextMenu: (event) => event.preventDefault(),
-};
-
-const normalizeInstagramWidgetPosts = (posts = []) =>
-  posts
-    .map((post) => ({
-      src: post?.src || post?.image || post?.imageUrl || post?.thumbnail || post?.mediaUrl,
-      href: post?.href || post?.url || post?.permalink || INSTAGRAM_URL,
-      alt: post?.alt || post?.caption || "",
-    }))
-    .filter((post) => post.src)
-    .slice(0, 6)
-    .map((post, index) => ({
-      src: post.src,
-      href: post.href,
-      alt: post.alt || `MiiiUのヘアデザイン ${index + 1}`,
-    }));
-
-const extractInstagramWidgetPosts = () => {
-  const widgetRoot = document.querySelector("[data-miiiu-instagram-widget]");
-  if (!widgetRoot) return [];
-
-  return Array.from(widgetRoot.querySelectorAll("a[href] img"))
-    .map((image) => {
-      const link = image.closest("a");
-      return {
-        src: image.currentSrc || image.src,
-        href: link?.href || INSTAGRAM_URL,
-        alt: image.alt,
-      };
-    })
-    .filter((post) => post.src);
 };
 
 const workStyles = [
@@ -121,38 +91,45 @@ const activityItems = [
     alt: "MiiiUの掲載実績を表すサロンイメージ",
     href: JBC_URL,
   },
+  {
+    title: "HOT PEPPER BEAUTY AWARD",
+    text: "2025・2026 サロン部門 注目サロン選出。お客様から高い支持をいただき、2年連続で選出されました。",
+    src: assets.hotpepperAward,
+    alt: "HOT PEPPER Beauty AWARD 2025・2026 サロン部門 注目サロン選出",
+    href: "https://beauty.hotpepper.jp/slnH000576408/?msockid=2232ad5700396a7018d4bbb401a96b66",
+  },
 ];
 
 const styleGallery = [
   {
-    src: "/images/instagram-hair/instagram-hair-01.jpg",
-    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
-    href: "https://www.instagram.com/miiiu_1111/p/DXCFDYCEv6U/",
+    src: "/images/hair/hair-01.jpg",
+    alt: "MiiiU公式Instagramに掲載されているオレンジベージュのヘアデザイン写真",
+    href: INSTAGRAM_URL,
   },
   {
-    src: "/images/instagram-hair/instagram-hair-02.jpg",
-    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
-    href: "https://www.instagram.com/miiiu_1111/p/DWdtc9zki47/",
+    src: "/images/hair/hair-02.jpg",
+    alt: "MiiiU公式Instagramに掲載されているラベンダーピンクのヘアデザイン写真",
+    href: INSTAGRAM_URL,
   },
   {
-    src: "/images/instagram-hair/instagram-hair-03.jpg",
-    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
-    href: "https://www.instagram.com/miiiu_1111/p/DV56feUkpY2/",
+    src: "/images/hair/hair-03.jpg",
+    alt: "MiiiU公式Instagramに掲載されているモーブピンクのヘアデザイン写真",
+    href: INSTAGRAM_URL,
   },
   {
-    src: "/images/instagram-hair/instagram-hair-04.jpg",
-    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
-    href: "https://www.instagram.com/miiiu_1111/p/DVnouaxEkCi/",
+    src: "/images/hair/hair-04.jpg",
+    alt: "MiiiU公式Instagramに掲載されているミルクティー系カラーのヘアデザイン写真",
+    href: INSTAGRAM_URL,
   },
   {
-    src: "/images/instagram-hair/instagram-hair-05.webp",
-    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
-    href: "https://www.instagram.com/miiiu_1111/p/DVSLnpOk86-/",
+    src: "/images/hair/hair-05.jpg",
+    alt: "MiiiU公式Instagramに掲載されているワインベリー系カラーのヘアデザイン写真",
+    href: INSTAGRAM_URL,
   },
   {
-    src: "/images/instagram-hair/instagram-hair-06.jpg",
-    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
-    href: "https://www.instagram.com/miiiu_1111/p/DVD2dxokkB9/",
+    src: "/images/hair/hair-06.jpg",
+    alt: "MiiiU公式Instagramに掲載されているアンブレラカラーのヘアデザイン写真",
+    href: INSTAGRAM_URL,
   },
 ];
 
@@ -713,38 +690,6 @@ function RecruitInformation() {
 }
 
 function StyleGallery() {
-  const [instagramPosts, setInstagramPosts] = useState(styleGallery);
-
-  useEffect(() => {
-    const applyWidgetPosts = (posts) => {
-      const nextPosts = normalizeInstagramWidgetPosts(posts);
-      if (nextPosts.length) {
-        setInstagramPosts(nextPosts);
-      }
-    };
-
-    const applyDomWidgetPosts = () => {
-      applyWidgetPosts(extractInstagramWidgetPosts());
-    };
-
-    applyWidgetPosts(window.MiiiUInstagramWidgetPosts);
-    applyDomWidgetPosts();
-
-    const handleWidgetPosts = (event) => {
-      applyWidgetPosts(event.detail?.posts || event.detail);
-    };
-
-    const widgetRoot = document.querySelector("[data-miiiu-instagram-widget]");
-    const observer = widgetRoot ? new MutationObserver(applyDomWidgetPosts) : null;
-    observer?.observe(widgetRoot, { childList: true, subtree: true, attributes: true });
-
-    window.addEventListener("miiiu:instagram-widget-posts", handleWidgetPosts);
-    return () => {
-      observer?.disconnect();
-      window.removeEventListener("miiiu:instagram-widget-posts", handleWidgetPosts);
-    };
-  }, []);
-
   return (
     <section id="style-gallery" className="style-gallery-section">
       <div className="style-gallery-head" data-reveal>
@@ -753,13 +698,12 @@ function StyleGallery() {
           title="最新スタイルはInstagramで更新しています"
         />
       </div>
-      <div className="instagram-widget-bridge" data-miiiu-instagram-widget aria-hidden="true" />
 
       <div
         className="style-gallery-grid"
         data-reveal
       >
-        {instagramPosts.slice(0, 6).map((item) => (
+        {styleGallery.map((item) => (
           <figure className="style-card" key={item.src}>
             <a href={item.href || INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagramでヘアデザインを見る">
               <img src={item.src} alt={item.alt} {...imageProps} />
@@ -769,7 +713,7 @@ function StyleGallery() {
       </div>
       <a className="instagram-cta secondary style-instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
         <InstagramIcon />
-        Instagramで他のスタイルも見る
+        Instagramで最新スタイルを見る
       </a>
     </section>
   );
