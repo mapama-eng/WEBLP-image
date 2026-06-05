@@ -839,12 +839,11 @@ export default function RecruitPage() {
         </a>
         <nav aria-label="ページ内ナビゲーション">
           <a href="#concept">Concept</a>
-          <a href="#message">Owner Message</a>
+          <a className="nav-owner" href="#message"><span>Owner</span><span>Message</span></a>
           <a href="#work">Work Style</a>
-          <a href="#activity">Activity</a>
-          <a href="#recruit-info">Recruit</a>
+          <a href="#space">Salon</a>
           <a href="#faq">FAQ</a>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">Instagram</a>
+          <a href="#entry">Entry</a>
         </nav>
       </header>
 

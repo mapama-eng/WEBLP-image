@@ -94,6 +94,7 @@ span {
   inset: 0 0 auto;
   z-index: 20;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1.5rem;
@@ -106,9 +107,11 @@ span {
   display: inline-flex;
   flex-direction: column;
   gap: 0.28rem;
+  flex: 0 0 auto;
   font-size: 1.55rem;
   line-height: 1;
   letter-spacing: 0.22em;
+  white-space: nowrap;
 }
 
 .brand span {
@@ -118,15 +121,16 @@ span {
 }
 
 .site-header nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   order: 3;
   flex: 0 0 100%;
-  gap: 1.15rem;
-  overflow-x: auto;
-  padding: 0.75rem 0 0.2rem;
+  gap: 0.58rem 0.85rem;
+  overflow: visible;
+  padding: 0.85rem 0 0.2rem;
   color: rgba(35, 33, 30, 0.46);
-  font-size: 0.58rem;
-  letter-spacing: 0.22em;
+  font-size: clamp(0.5rem, 2vw, 0.56rem);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   scrollbar-width: none;
 }
@@ -136,7 +140,14 @@ span {
 }
 
 .site-header nav a {
-  flex: 0 0 auto;
+  min-width: 0;
+  text-align: center;
+  white-space: normal;
+  line-height: 1.35;
+}
+
+.site-header nav .nav-owner span {
+  display: block;
 }
 
 .eyebrow,
@@ -155,7 +166,7 @@ span {
   width: min(100% - 2rem, 1180px);
   max-width: calc(100vw - 2rem);
   margin: 0 auto;
-  padding: 5.2rem 0 4rem;
+  padding: 8.8rem 0 4rem;
   isolation: isolate;
 }
 
@@ -1021,6 +1032,10 @@ span {
 .style-gallery-section {
   overflow: hidden;
   border-top: 1px solid rgba(184, 154, 94, 0.22);
+  background:
+    linear-gradient(180deg, rgba(216, 206, 193, 0.16), rgba(255, 253, 248, 0.2)),
+    rgba(246, 240, 232, 0.28);
+  padding-inline: clamp(1rem, 4vw, 2.6rem);
 }
 
 .style-gallery-head {
@@ -1082,9 +1097,9 @@ span {
 .style-gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1rem, 3.8vw, 1.65rem);
-  width: min(100%, 60rem);
-  margin: 2.9rem auto 0;
+  gap: clamp(0.85rem, 4vw, 1rem);
+  width: min(100%, 58rem);
+  margin: 3.1rem auto 0;
 }
 
 .style-card {
@@ -1093,7 +1108,7 @@ span {
   overflow: hidden;
   margin: 0;
   scroll-snap-align: start;
-  background: rgba(255, 253, 248, 0.28);
+  background: rgba(255, 253, 248, 0.18);
 }
 
 .style-card a {
@@ -1122,7 +1137,7 @@ span {
 .style-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 5.35;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: center 42%;
   filter: saturate(0.82) contrast(0.94) brightness(1.04);
@@ -1134,6 +1149,39 @@ span {
 .style-card:hover img {
   filter: saturate(0.86) contrast(0.96) brightness(1.07);
   transform: scale(1.018);
+}
+
+html.reveal-ready .style-gallery-grid .style-card {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 820ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 820ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.reveal-ready .style-gallery-grid.is-visible .style-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html.reveal-ready .style-gallery-grid.is-visible .style-card:nth-child(2) {
+  transition-delay: 70ms;
+}
+
+html.reveal-ready .style-gallery-grid.is-visible .style-card:nth-child(3) {
+  transition-delay: 140ms;
+}
+
+html.reveal-ready .style-gallery-grid.is-visible .style-card:nth-child(4) {
+  transition-delay: 210ms;
+}
+
+html.reveal-ready .style-gallery-grid.is-visible .style-card:nth-child(5) {
+  transition-delay: 280ms;
+}
+
+html.reveal-ready .style-gallery-grid.is-visible .style-card:nth-child(6) {
+  transition-delay: 350ms;
 }
 
 .style-card figcaption {
@@ -1642,6 +1690,14 @@ html.reveal-ready [data-reveal].is-visible,
     font-size: 0.66rem;
     letter-spacing: 0.34em;
     text-transform: uppercase;
+  }
+
+  .site-header nav .nav-owner span {
+    display: inline;
+  }
+
+  .site-header nav .nav-owner span + span::before {
+    content: " ";
   }
 
   .instagram-cta {
