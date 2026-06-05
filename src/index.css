@@ -490,11 +490,11 @@ span {
 
 .message-logo-watermark {
   position: absolute;
-  left: 7%;
-  top: 48%;
+  left: 3%;
+  top: 52%;
   z-index: -1;
   width: min(78vw, 54rem);
-  opacity: 0.045;
+  opacity: 0.052;
   transform: translateY(-50%);
 }
 
@@ -941,6 +941,7 @@ span {
 .activity-card {
   display: grid;
   gap: 1rem;
+  grid-template-rows: auto 1fr;
   border: 1px solid rgba(184, 154, 94, 0.24);
   background: rgba(255, 253, 248, 0.22);
   padding: clamp(0.85rem, 3vw, 1.2rem);
@@ -976,20 +977,18 @@ span {
 
 .activity-card img {
   width: 100%;
-  aspect-ratio: 4 / 3.1;
+  aspect-ratio: 4 / 4.05;
   object-fit: cover;
   object-position: center 44%;
   filter: saturate(0.78) contrast(0.92) brightness(1.04);
 }
 
 .activity-card:first-child img {
-  aspect-ratio: 4 / 4.05;
   object-position: center 46%;
-  filter: saturate(0.72) contrast(0.9) brightness(1.04);
 }
 
 .activity-card:nth-child(2) img {
-  object-position: center 50%;
+  object-position: center 48%;
 }
 
 .activity-card span {
@@ -1015,6 +1014,15 @@ span {
   display: grid;
   gap: 1.6rem;
   align-items: end;
+}
+
+.instagram-widget-bridge {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .gallery-controls {

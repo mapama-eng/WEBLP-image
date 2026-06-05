@@ -34,6 +34,22 @@ const normalizeInstagramWidgetPosts = (posts = []) =>
       alt: post.alt || `MiiiUのヘアデザイン ${index + 1}`,
     }));
 
+const extractInstagramWidgetPosts = () => {
+  const widgetRoot = document.querySelector("[data-miiiu-instagram-widget]");
+  if (!widgetRoot) return [];
+
+  return Array.from(widgetRoot.querySelectorAll("a[href] img"))
+    .map((image) => {
+      const link = image.closest("a");
+      return {
+        src: image.currentSrc || image.src,
+        href: link?.href || INSTAGRAM_URL,
+        alt: image.alt,
+      };
+    })
+    .filter((post) => post.src);
+};
+
 const workStyles = [
   {
     title: "マンツーマン接客",
@@ -109,40 +125,34 @@ const activityItems = [
 
 const styleGallery = [
   {
-    src: "/assets/photos/style-gallery-01.png",
-    label: "LONG LAYER",
-    alt: "大人女性のためのロングレイヤーヘアデザインの仮イメージ",
-    href: INSTAGRAM_URL,
+    src: "/images/instagram-hair/instagram-hair-01.jpg",
+    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
+    href: "https://www.instagram.com/miiiu_1111/p/DXCFDYCEv6U/",
   },
   {
-    src: "/assets/photos/style-gallery-02.png",
-    label: "SOFT BOB",
-    alt: "大人女性のためのボブヘアデザインの仮イメージ",
-    href: INSTAGRAM_URL,
+    src: "/images/instagram-hair/instagram-hair-02.jpg",
+    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
+    href: "https://www.instagram.com/miiiu_1111/p/DWdtc9zki47/",
   },
   {
-    src: "/assets/photos/style-gallery-03.png",
-    label: "BEIGE WAVE",
-    alt: "大人女性のためのウェーブヘアデザインの仮イメージ",
-    href: INSTAGRAM_URL,
+    src: "/images/instagram-hair/instagram-hair-03.jpg",
+    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
+    href: "https://www.instagram.com/miiiu_1111/p/DV56feUkpY2/",
   },
   {
-    src: "/assets/photos/style-gallery-04.png",
-    label: "LAYERED BOB",
-    alt: "大人女性のためのレイヤーボブヘアデザインの仮イメージ",
-    href: INSTAGRAM_URL,
+    src: "/images/instagram-hair/instagram-hair-04.jpg",
+    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
+    href: "https://www.instagram.com/miiiu_1111/p/DVnouaxEkCi/",
   },
   {
-    src: "/assets/photos/style-gallery-05.png",
-    label: "MOCHA STRAIGHT",
-    alt: "大人女性のためのストレートヘアデザインの仮イメージ",
-    href: INSTAGRAM_URL,
+    src: "/images/instagram-hair/instagram-hair-05.webp",
+    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
+    href: "https://www.instagram.com/miiiu_1111/p/DVSLnpOk86-/",
   },
   {
-    src: "/assets/photos/recruit-hair-visual.png",
-    label: "SOFT DESIGN",
-    alt: "MiiiUのヘアデザインの代替イメージ",
-    href: INSTAGRAM_URL,
+    src: "/images/instagram-hair/instagram-hair-06.jpg",
+    alt: "MiiiU公式Instagramに掲載されているヘアデザイン写真",
+    href: "https://www.instagram.com/miiiu_1111/p/DVD2dxokkB9/",
   },
 ];
 
@@ -713,14 +723,26 @@ function StyleGallery() {
       }
     };
 
+    const applyDomWidgetPosts = () => {
+      applyWidgetPosts(extractInstagramWidgetPosts());
+    };
+
     applyWidgetPosts(window.MiiiUInstagramWidgetPosts);
+    applyDomWidgetPosts();
 
     const handleWidgetPosts = (event) => {
       applyWidgetPosts(event.detail?.posts || event.detail);
     };
 
+    const widgetRoot = document.querySelector("[data-miiiu-instagram-widget]");
+    const observer = widgetRoot ? new MutationObserver(applyDomWidgetPosts) : null;
+    observer?.observe(widgetRoot, { childList: true, subtree: true, attributes: true });
+
     window.addEventListener("miiiu:instagram-widget-posts", handleWidgetPosts);
-    return () => window.removeEventListener("miiiu:instagram-widget-posts", handleWidgetPosts);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("miiiu:instagram-widget-posts", handleWidgetPosts);
+    };
   }, []);
 
   return (
@@ -731,6 +753,7 @@ function StyleGallery() {
           title="最新スタイルはInstagramで更新しています"
         />
       </div>
+      <div className="instagram-widget-bridge" data-miiiu-instagram-widget aria-hidden="true" />
 
       <div
         className="style-gallery-grid"
