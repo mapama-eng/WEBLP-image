@@ -1099,6 +1099,7 @@ span {
 .style-card a {
   display: block;
   color: inherit;
+  overflow: hidden;
 }
 
 .style-card a:focus-visible {
@@ -1125,6 +1126,14 @@ span {
   object-fit: cover;
   object-position: center 42%;
   filter: saturate(0.82) contrast(0.94) brightness(1.04);
+  transition:
+    filter 260ms ease,
+    transform 260ms ease;
+}
+
+.style-card:hover img {
+  filter: saturate(0.86) contrast(0.96) brightness(1.07);
+  transform: scale(1.018);
 }
 
 .style-card figcaption {

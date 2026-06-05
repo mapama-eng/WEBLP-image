@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const INSTAGRAM_URL = "https://www.instagram.com/miiiu_1111/";
 const JBC_URL = "https://jbc-web.info/miiiu-4/";
+const INSTAGRAM_FEED_URL = import.meta.env.VITE_INSTAGRAM_FEED_URL || "";
 
 const assets = {
   hero: "/assets/photos/miiiu-editorial-hero.png",
@@ -18,6 +19,29 @@ const assets = {
 const imageProps = {
   draggable: "false",
   onContextMenu: (event) => event.preventDefault(),
+};
+
+const normalizeHairStyleFeed = (posts = []) =>
+  posts
+    .map((post) => ({
+      src: post?.src || post?.image || post?.imageUrl || post?.media_url || post?.thumbnail_url,
+      href: post?.href || post?.url || post?.permalink || INSTAGRAM_URL,
+      alt: post?.alt || post?.caption || "MiiiU公式Instagramのヘアスタイル写真",
+    }))
+    .filter((post) => post.src)
+    .slice(0, 6);
+
+const pickHairStylePosts = (payload) => {
+  const posts = Array.isArray(payload)
+    ? payload
+    : payload?.posts || payload?.items || payload?.media || payload?.data || [];
+
+  return normalizeHairStyleFeed(
+    posts.filter((post) => {
+      const mediaType = post?.media_type || post?.type;
+      return !mediaType || ["IMAGE", "CAROUSEL_ALBUM", "image", "carousel"].includes(mediaType);
+    }),
+  );
 };
 
 const workStyles = [
@@ -690,11 +714,36 @@ function RecruitInformation() {
 }
 
 function StyleGallery() {
+  const [hairStylePosts, setHairStylePosts] = useState(styleGallery);
+
+  useEffect(() => {
+    const applyFeed = (payload) => {
+      const posts = pickHairStylePosts(payload);
+      if (posts.length) {
+        setHairStylePosts(posts);
+      }
+    };
+
+    applyFeed(window.MiiiUHairStyleFeed);
+
+    const handleFeed = (event) => applyFeed(event.detail);
+    window.addEventListener("miiiu:hair-style-feed", handleFeed);
+
+    if (INSTAGRAM_FEED_URL) {
+      fetch(INSTAGRAM_FEED_URL)
+        .then((response) => (response.ok ? response.json() : null))
+        .then((payload) => payload && applyFeed(payload))
+        .catch(() => {});
+    }
+
+    return () => window.removeEventListener("miiiu:hair-style-feed", handleFeed);
+  }, []);
+
   return (
     <section id="style-gallery" className="style-gallery-section">
       <div className="style-gallery-head" data-reveal>
         <SectionHeading
-          eyebrow="HAIR DESIGN"
+          eyebrow="HAIR STYLE"
           title="最新スタイルはInstagramで更新しています"
         />
       </div>
@@ -703,17 +752,17 @@ function StyleGallery() {
         className="style-gallery-grid"
         data-reveal
       >
-        {styleGallery.map((item) => (
+        {hairStylePosts.map((item) => (
           <figure className="style-card" key={item.src}>
-            <a href={item.href || INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagramでヘアデザインを見る">
-              <img src={item.src} alt={item.alt} {...imageProps} />
+            <a href={item.href || INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagramでヘアスタイルを見る">
+              <img src={item.src} alt={item.alt} loading="lazy" decoding="async" {...imageProps} />
             </a>
           </figure>
         ))}
       </div>
       <a className="instagram-cta secondary style-instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
         <InstagramIcon />
-        Instagramで最新スタイルを見る
+        Instagramで他のスタイルを見る →
       </a>
     </section>
   );
