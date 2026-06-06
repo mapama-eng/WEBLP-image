@@ -568,9 +568,7 @@ span {
   position: relative;
 }
 
-.space-stage,
-.space-side-photos,
-.space-detail-photos {
+.space-support-photos {
   display: grid;
   gap: 1rem;
 }
@@ -612,25 +610,21 @@ span {
   object-position: center;
 }
 
-.space-side-photos {
+.space-support-photos {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.space-photo-overview img,
+.space-photo-reception img,
 .space-photo-light img {
   aspect-ratio: 4 / 3;
 }
 
-.space-photo-overview img {
-  object-position: 76% center;
+.space-photo-reception img {
+  object-position: center 44%;
 }
 
 .space-photo-light img {
   object-position: center;
-}
-
-.space-detail-photos {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .space-photo-seat img,
@@ -1073,7 +1067,10 @@ span {
 }
 
 .activity-card:nth-child(3) img {
-  object-position: center 50%;
+  object-fit: contain;
+  object-position: center;
+  background: #eee4d7;
+  padding: 0.5rem;
 }
 
 .activity-card figure:hover img {
@@ -1678,40 +1675,8 @@ html.reveal-ready [data-reveal].is-visible,
     gap: clamp(1.5rem, 3vw, 2.8rem);
   }
 
-  .space-stage {
-    grid-template-columns: minmax(0, 1.8fr) minmax(15rem, 0.72fr);
-    align-items: start;
+  .space-support-photos {
     gap: clamp(1.2rem, 2.6vw, 2.2rem);
-  }
-
-  .space-side-photos {
-    grid-template-columns: 1fr;
-    gap: clamp(1.5rem, 3vw, 2.8rem);
-    padding-top: clamp(3rem, 7vw, 6rem);
-  }
-
-  .space-photo-overview img {
-    aspect-ratio: 16 / 10;
-  }
-
-  .space-photo-light {
-    width: 82%;
-    margin-left: auto;
-  }
-
-  .space-detail-photos {
-    position: relative;
-    z-index: 2;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1.2rem, 2.6vw, 2.2rem);
-    width: 58%;
-    margin: clamp(-5rem, -5vw, -3rem) 0 0 7%;
-    padding: 1.2rem 1.2rem 0 0;
-    background: #f6f0e8;
-  }
-
-  .space-photo-seat {
-    transform: translateY(1.8rem);
   }
 
   .team-grid {
@@ -1785,6 +1750,18 @@ html.reveal-ready [data-reveal].is-visible,
 }
 
 @media (min-width: 1080px) {
+  .space-photo-main img {
+    aspect-ratio: 16 / 8.5;
+  }
+
+  .space-support-photos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .space-support-photos .space-photo img {
+    aspect-ratio: 4 / 3;
+  }
+
   .activity-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
