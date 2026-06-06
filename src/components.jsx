@@ -9,10 +9,11 @@ const assets = {
   reception: "/assets/photos/salon-reception-counter.JPG",
   salon: "/assets/photos/salon-space-bright.png",
   lighting: "/assets/photos/salon-spherical-light.JPG",
-  salonMain: "/assets/photos/official-salon/salon-main.jpg",
+  salonMain: "/assets/photos/salon-space-bright.png",
+  salonOverview: "/assets/photos/official-salon/salon-main.jpg",
   salonSeat: "/assets/photos/official-salon/salon-seat.jpg",
-  salonPair: "/assets/photos/official-salon/salon-pair.jpg",
   salonShampoo: "/assets/photos/official-salon/salon-shampoo.jpg",
+  salonLight: "/assets/photos/official-salon/salon-light.jpg",
   owner: "/images/owner.jpg",
   hairshow: "/images/hairshow.jpg",
   jbcCover: "/images/jbc-cover.png",
@@ -483,18 +484,30 @@ function SalonSpace() {
         </p>
       </div>
       <div className="space-visuals" data-reveal>
-        <figure className="space-photo space-photo-main">
-          <img src={assets.salonMain} alt="MiiiUの半個室サロンスペース" {...imageProps} />
-        </figure>
-        <div className="space-supporting-photos">
-          <figure className="space-photo">
-            <img src={assets.salonSeat} alt="MiiiUの落ち着いた施術席" {...imageProps} />
+        <div className="space-stage">
+          <figure className="space-photo space-photo-main">
+            <img src={assets.salonMain} alt="MiiiUのセット面と半個室が並ぶサロンスペース" {...imageProps} />
+            <figcaption>SEMI PRIVATE SPACE</figcaption>
           </figure>
-          <figure className="space-photo">
-            <img src={assets.salonPair} alt="MiiiUのゆったりとした施術空間" {...imageProps} />
+          <div className="space-side-photos">
+            <figure className="space-photo space-photo-overview">
+              <img src={assets.salonOverview} alt="MiiiUの奥行きが感じられる半個室空間" {...imageProps} />
+              <figcaption>PRIVATE SALON</figcaption>
+            </figure>
+            <figure className="space-photo space-photo-light">
+              <img src={assets.salonLight} alt="MiiiU店内を彩る球体照明" {...imageProps} />
+              <figcaption>LIGHTING</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div className="space-detail-photos">
+          <figure className="space-photo space-photo-seat">
+            <img src={assets.salonSeat} alt="MiiiUの鏡と一人掛けのセット面" {...imageProps} />
+            <figcaption>SET SPACE</figcaption>
           </figure>
-          <figure className="space-photo">
-            <img src={assets.salonShampoo} alt="MiiiUのシャンプースペース" {...imageProps} />
+          <figure className="space-photo space-photo-shampoo">
+            <img src={assets.salonShampoo} alt="MiiiUの落ち着いたシャンプーブース" {...imageProps} />
+            <figcaption>SHAMPOO SPACE</figcaption>
           </figure>
         </div>
       </div>
