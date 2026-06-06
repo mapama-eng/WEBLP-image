@@ -439,6 +439,26 @@ span {
   padding: clamp(2rem, 8vw, 4rem) 0;
 }
 
+.concept-section-compact {
+  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.concept-section-compact .concept-frame {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 4.5rem);
+  padding: clamp(1.5rem, 5vw, 2.6rem) 0;
+}
+
+.concept-statement {
+  margin: 0;
+  color: #23211e;
+  font-size: clamp(1.15rem, 3vw, 1.75rem);
+  line-height: 1.8;
+  letter-spacing: 0.08em;
+}
+
 .concept-frame h2,
 .section-heading h2,
 .looking-inner h2 {
@@ -497,6 +517,7 @@ span {
 .message-section {
   position: relative;
   isolation: isolate;
+  padding-top: clamp(3.2rem, 8vw, 6rem);
 }
 
 .message-logo-watermark {
@@ -538,52 +559,63 @@ span {
 
 .space-section {
   display: grid;
-  gap: 2.5rem;
+  gap: clamp(2.4rem, 6vw, 4.5rem);
   isolation: isolate;
 }
 
 .space-visuals {
   display: grid;
-  align-content: center;
+  gap: 1rem;
   position: relative;
 }
 
-.space-reception-photo {
+.space-photo {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   margin: 0;
 }
 
-.space-reception-photo::after {
+.space-photo::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(246, 240, 232, 0.16), transparent 42%, rgba(246, 240, 232, 0.24)),
-    linear-gradient(180deg, rgba(255, 253, 248, 0.16), transparent 50%, rgba(246, 240, 232, 0.22));
+    linear-gradient(90deg, rgba(246, 240, 232, 0.06), transparent 42%, rgba(246, 240, 232, 0.08)),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.05), transparent 50%, rgba(246, 240, 232, 0.08));
   mix-blend-mode: screen;
 }
 
-.space-reception-photo img {
+.space-photo img {
+  display: block;
   width: 100%;
+  height: 100%;
   object-fit: cover;
-  filter: saturate(0.82) contrast(0.94) brightness(1.04);
+  filter: saturate(0.84) contrast(0.98) brightness(1.01);
 }
 
-.space-reception-photo img {
-  aspect-ratio: 4 / 3.25;
-  object-position: center 42%;
+.space-photo-main img {
+  aspect-ratio: 16 / 10;
+  object-position: 72% 48%;
 }
 
-.space-logo-mark {
-  position: absolute;
-  right: -4%;
-  bottom: -11%;
-  z-index: 2;
-  width: min(56vw, 27rem);
-  opacity: 0.09;
+.space-supporting-photos {
+  display: grid;
+  gap: 1rem;
+}
+
+.space-supporting-photos .space-photo img {
+  aspect-ratio: 4 / 3;
+}
+
+.space-supporting-photos .space-photo:nth-child(1) img,
+.space-supporting-photos .space-photo:nth-child(2) img {
+  object-position: center 58%;
+}
+
+.space-supporting-photos .space-photo:nth-child(3) img {
+  object-position: center 48%;
 }
 
 .team-section {
@@ -646,11 +678,17 @@ span {
 .space-copy {
   display: grid;
   align-content: center;
+  max-width: 58rem;
 }
 
 .space-copy .section-heading h2 {
   font-size: clamp(1.85rem, 5vw, 2.65rem);
   line-height: 1.65;
+}
+
+.space-copy .space-intro {
+  margin-top: 1.8rem;
+  max-width: 43rem;
 }
 
 .work-grid {
@@ -1744,22 +1782,32 @@ html.reveal-ready [data-reveal].is-visible,
   }
 
   .space-section {
-    grid-template-columns: minmax(0, 0.58fr) minmax(20rem, 0.42fr);
-    gap: clamp(3rem, 6vw, 5.5rem);
+    grid-template-columns: 1fr;
+    gap: clamp(3rem, 6vw, 4.8rem);
   }
 
   .space-visuals {
-    align-items: end;
+    grid-template-columns: minmax(0, 1.75fr) minmax(13rem, 0.75fr);
+    align-items: stretch;
+    gap: clamp(1.2rem, 2.4vw, 2rem);
   }
 
-  .space-reception-photo {
-    width: min(100%, 38rem);
+  .space-photo-main,
+  .space-photo-main img {
+    min-height: 34rem;
   }
 
-  .space-logo-mark {
-    right: -7%;
-    bottom: -7%;
-    width: min(34vw, 28rem);
+  .space-photo-main img {
+    aspect-ratio: auto;
+  }
+
+  .space-supporting-photos {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.2rem, 2.4vw, 2rem);
+  }
+
+  .space-supporting-photos .space-photo img {
+    aspect-ratio: auto;
   }
 
   .team-grid {

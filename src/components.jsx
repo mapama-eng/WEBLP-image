@@ -9,6 +9,10 @@ const assets = {
   reception: "/assets/photos/salon-reception-counter.JPG",
   salon: "/assets/photos/salon-space-bright.png",
   lighting: "/assets/photos/salon-spherical-light.JPG",
+  salonMain: "/assets/photos/official-salon/salon-main.jpg",
+  salonSeat: "/assets/photos/official-salon/salon-seat.jpg",
+  salonPair: "/assets/photos/official-salon/salon-pair.jpg",
+  salonShampoo: "/assets/photos/official-salon/salon-shampoo.jpg",
   owner: "/images/owner.jpg",
   hairshow: "/images/hairshow.jpg",
   jbcCover: "/images/jbc-cover.png",
@@ -430,15 +434,10 @@ function Hero() {
 
 function Concept() {
   return (
-    <section id="concept" className="concept-section">
+    <section id="concept" className="concept-section concept-section-compact">
       <div className="concept-frame" data-reveal>
         <p className="eyebrow">CONCEPT</p>
-        <h2>お客様と本当に向き合う</h2>
-        <p>
-          MiiiUが大切にしているのは、技術だけではなく、その人に寄り添う姿勢です。
-          一対一で丁寧に向き合い、信頼を重ねながら、日常の中に少しだけ特別な時間を届ける。
-          そんな美容師であり続けたいと考えています。
-        </p>
+        <p className="concept-statement">信頼は、一人ひとりと過ごす時間から。</p>
       </div>
     </section>
   );
@@ -475,25 +474,29 @@ function Message() {
 function SalonSpace() {
   return (
     <section id="space" className="space-section">
-      <div className="space-visuals" data-reveal>
-        <figure className="space-reception-photo">
-          <img src={assets.reception} alt="MiiiUの受付カウンター" {...imageProps} />
-        </figure>
-        <img className="brand-watermark space-logo-mark" src={assets.logoMark} alt="" aria-hidden="true" />
-      </div>
       <div className="space-copy" data-reveal>
         <SectionHeading eyebrow="SALON SPACE" title="お客様との時間を、大切にできる場所。" />
-        <p>
-          MiiiUは、個室のように落ち着いた空間で、お客様一人ひとりと丁寧に向き合うことを大切にしています。
+        <p className="space-intro">
+          お客様一人ひとりと静かに向き合える、半個室の上質な空間。
+          <br />
+          美容師としての技術だけでなく、接客の時間そのものを大切にできる場所です。
         </p>
-        <p>
-          周囲を気にせず、目の前のお客様の悩みや理想に耳を傾けられること。
-          その積み重ねが、信頼される美容師としての成長につながると考えています。
-        </p>
-        <p>
-          ここでは、流れ作業のように数をこなすのではなく、一人のお客様との時間を大切にしながら、
-          美容師としての感性を磨いていけます。
-        </p>
+      </div>
+      <div className="space-visuals" data-reveal>
+        <figure className="space-photo space-photo-main">
+          <img src={assets.salonMain} alt="MiiiUの半個室サロンスペース" {...imageProps} />
+        </figure>
+        <div className="space-supporting-photos">
+          <figure className="space-photo">
+            <img src={assets.salonSeat} alt="MiiiUの落ち着いた施術席" {...imageProps} />
+          </figure>
+          <figure className="space-photo">
+            <img src={assets.salonPair} alt="MiiiUのゆったりとした施術空間" {...imageProps} />
+          </figure>
+          <figure className="space-photo">
+            <img src={assets.salonShampoo} alt="MiiiUのシャンプースペース" {...imageProps} />
+          </figure>
+        </div>
       </div>
     </section>
   );
