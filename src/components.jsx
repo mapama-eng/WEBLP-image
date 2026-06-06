@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 const INSTAGRAM_URL = "https://www.instagram.com/miiiu_1111/";
 const JBC_URL = "https://jbc-web.info/miiiu-4/";
-const INSTAGRAM_FEED_URL = import.meta.env.VITE_INSTAGRAM_FEED_URL || "";
 
 const assets = {
   hero: "/assets/photos/miiiu-editorial-hero.png",
@@ -24,29 +23,6 @@ const assets = {
 const imageProps = {
   draggable: "false",
   onContextMenu: (event) => event.preventDefault(),
-};
-
-const normalizeHairStyleFeed = (posts = []) =>
-  posts
-    .map((post) => ({
-      src: post?.src || post?.image || post?.imageUrl || post?.media_url || post?.thumbnail_url,
-      href: post?.href || post?.url || post?.permalink || INSTAGRAM_URL,
-      alt: post?.alt || post?.caption || "MiiiU公式Instagramのヘアスタイル写真",
-    }))
-    .filter((post) => post.src)
-    .slice(0, 6);
-
-const pickHairStylePosts = (payload) => {
-  const posts = Array.isArray(payload)
-    ? payload
-    : payload?.posts || payload?.items || payload?.media || payload?.data || [];
-
-  return normalizeHairStyleFeed(
-    posts.filter((post) => {
-      const mediaType = post?.media_type || post?.type;
-      return !mediaType || ["IMAGE", "CAROUSEL_ALBUM", "image", "carousel"].includes(mediaType);
-    }),
-  );
 };
 
 const workStyles = [
@@ -126,39 +102,6 @@ const activityItems = [
     src: assets.hotpepperAward,
     alt: "HOT PEPPER Beauty AWARD 2025・2026 サロン部門 注目サロン選出",
     href: "https://beauty.hotpepper.jp/slnH000576408/?msockid=2232ad5700396a7018d4bbb401a96b66",
-  },
-];
-
-const styleGallery = [
-  {
-    src: "/images/hair/hair-01.jpg",
-    alt: "MiiiU公式Instagramに掲載されているオレンジベージュのヘアデザイン写真",
-    href: INSTAGRAM_URL,
-  },
-  {
-    src: "/images/hair/hair-02.jpg",
-    alt: "MiiiU公式Instagramに掲載されているラベンダーピンクのヘアデザイン写真",
-    href: INSTAGRAM_URL,
-  },
-  {
-    src: "/images/hair/hair-03.jpg",
-    alt: "MiiiU公式Instagramに掲載されているモーブピンクのヘアデザイン写真",
-    href: INSTAGRAM_URL,
-  },
-  {
-    src: "/images/hair/hair-04.jpg",
-    alt: "MiiiU公式Instagramに掲載されているミルクティー系カラーのヘアデザイン写真",
-    href: INSTAGRAM_URL,
-  },
-  {
-    src: "/images/hair/hair-05.jpg",
-    alt: "MiiiU公式Instagramに掲載されているワインベリー系カラーのヘアデザイン写真",
-    href: INSTAGRAM_URL,
-  },
-  {
-    src: "/images/hair/hair-06.jpg",
-    alt: "MiiiU公式Instagramに掲載されているアンブレラカラーのヘアデザイン写真",
-    href: INSTAGRAM_URL,
   },
 ];
 
@@ -729,61 +672,6 @@ function RecruitInformation() {
   );
 }
 
-function StyleGallery() {
-  const [hairStylePosts, setHairStylePosts] = useState(styleGallery);
-
-  useEffect(() => {
-    const applyFeed = (payload) => {
-      const posts = pickHairStylePosts(payload);
-      if (posts.length) {
-        setHairStylePosts(posts);
-      }
-    };
-
-    applyFeed(window.MiiiUHairStyleFeed);
-
-    const handleFeed = (event) => applyFeed(event.detail);
-    window.addEventListener("miiiu:hair-style-feed", handleFeed);
-
-    if (INSTAGRAM_FEED_URL) {
-      fetch(INSTAGRAM_FEED_URL)
-        .then((response) => (response.ok ? response.json() : null))
-        .then((payload) => payload && applyFeed(payload))
-        .catch(() => {});
-    }
-
-    return () => window.removeEventListener("miiiu:hair-style-feed", handleFeed);
-  }, []);
-
-  return (
-    <section id="style-gallery" className="style-gallery-section">
-      <div className="style-gallery-head" data-reveal>
-        <SectionHeading
-          eyebrow="HAIR STYLE"
-          title="最新スタイルはInstagramで更新しています"
-        />
-      </div>
-
-      <div
-        className="style-gallery-grid"
-        data-reveal
-      >
-        {hairStylePosts.map((item) => (
-          <figure className="style-card" key={item.src}>
-            <a href={item.href || INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagramでヘアスタイルを見る">
-              <img src={item.src} alt={item.alt} loading="lazy" decoding="async" {...imageProps} />
-            </a>
-          </figure>
-        ))}
-      </div>
-      <a className="instagram-cta secondary style-instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-        <InstagramIcon />
-        Instagramで他のスタイルを見る →
-      </a>
-    </section>
-  );
-}
-
 function WorkStyle() {
   return (
     <section id="work" className="work-section">
@@ -870,7 +758,6 @@ export default function RecruitPage() {
       <SalonSpace />
       <OurTeam />
       <StaffVoices />
-      <StyleGallery />
       <WorkStyle />
       <ActivitySection />
       <DailyFlow />
@@ -885,9 +772,19 @@ export default function RecruitPage() {
           MiiiU
           <span>recruit 2026</span>
         </p>
-        <div>
+        <div className="footer-links">
           <a href="https://miiiu.jp/" target="_blank" rel="noreferrer">official site</a>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">instagram</a>
+          <a
+            className="footer-instagram"
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="MiiiU公式Instagramを見る"
+          >
+            <InstagramIcon />
+            <span className="footer-instagram-account">@miiiu_1111</span>
+            <span className="footer-instagram-label">Instagramを見る</span>
+          </a>
         </div>
       </footer>
 
