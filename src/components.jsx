@@ -99,11 +99,11 @@ const recruitInfo = [
   ["経験年数", "不問"],
   ["募集人数", "男性1名\n女性1名"],
   ["年齢", "20代〜30代"],
-  ["勤務地", "山形店 または 天童店"],
+  ["勤務地", "MiiiU（天童店）"],
   ["勤務条件", "1ヶ月の中で\n土日6日以上勤務可能な方"],
   ["雇用形態", "業務委託"],
   ["平均単価", "11,000円"],
-  ["技術売上", "50〜60％\n例）売上100万円 → 50〜60万円"],
+  ["技術売上", "50〜60％\n例）売上100万円 →\n50〜60万円"],
   ["店販売上", "10％"],
   ["ECサイト売上", "10％"],
   ["その他", "条件交渉可"],
@@ -599,15 +599,15 @@ function FaqSection() {
 
 function SeoIntro() {
   return (
-    <section id="yamagata-recruit" className="seo-intro-section">
+    <section id="tendo-recruit" className="seo-intro-section">
       <div className="seo-intro-inner" data-reveal>
-        <p className="eyebrow">YAMAGATA BEAUTY RECRUIT</p>
-        <h2>山形市で美容師求人を探している方へ</h2>
+        <p className="eyebrow">TENDO BEAUTY RECRUIT</p>
+        <h2>天童・山形エリアで美容師として長く働ける環境を探している方へ</h2>
         <p>
-          山形市美容師求人や山形美容室求人を探している方、落ち着いた半個室サロンでスタイリストとして働きたい方へ。MiiiUは山形市内で、お客様一人ひとりに丁寧に向き合うサロンワークを大切にしています。美容師としての技術を磨きながら、接客やヘアデザインの感性も育てていける環境です。
+          天童で美容師求人や美容室求人を探している方へ。MiiiU天童店は、半個室の上質な空間で、お客様一人ひとりに丁寧に向き合うサロンワークを大切にしています。落ち着いた環境の中で、技術と接客の両方を穏やかに磨きながら、長く美容師を続けていける場所を目指しています。
         </p>
         <p>
-          美容師転職を考えている方、業務委託美容師として自分らしい働き方を探している方、髪質改善サロンでの経験を活かしたい方にも、MiiiUの空気感を知っていただけたらと思います。スタイリスト募集や山形市求人を比較している段階でも、まずはInstagramのDMからお気軽にご相談ください。
+          天童市をはじめ、東根市・寒河江市・山形市など山形エリアで美容師転職を考えている方、業務委託美容師として自分らしい働き方を探している方にも、MiiiUの空気感を知っていただけたらと思います。半個室サロンの美容師求人を比較している段階でも、まずはサロン見学や働き方について、InstagramのDMからお気軽にご相談ください。
         </p>
       </div>
     </section>
@@ -695,8 +695,8 @@ function RecruitInformation() {
       </div>
 
       <figure className="recruit-info-photo" data-reveal>
-        <img src={assets.lighting} alt="MiiiU店内の球体照明" {...imageProps} />
-        <figcaption>SALON SCENE</figcaption>
+        <img src={assets.owner} alt="MiiiUオーナー" {...imageProps} />
+        <figcaption>OWNER / MiiiU</figcaption>
       </figure>
     </section>
   );
@@ -744,13 +744,16 @@ function Entry() {
       <div className="entry-copy" data-reveal>
         <SectionHeading eyebrow="ENTRY" title="サロン見学をご希望の方へ" />
         <p>
-          <span>まずはInstagramの投稿やハイライトをご覧いただき、</span>
-          <span>MiiiUの考え方や雰囲気に共感してくださる方のみ、</span>
+          <span>まずはInstagramの投稿やハイライトを</span>
+          <span>ご覧いただき、</span>
+          <span>MiiiUの考え方や雰囲気に</span>
+          <span>共感してくださる方のみ、</span>
           <span>DMよりご連絡をお願いいたします。</span>
         </p>
         <p>
           <span>見学希望、働き方の相談、</span>
-          <span>少し話を聞いてみたいという段階でも大丈夫です。</span>
+          <span>少し話を聞いてみたいという段階でも</span>
+          <span>大丈夫です。</span>
           <span>お互いを大切にできる出会いを、</span>
           <span>丁寧に重ねていきたいと考えています。</span>
         </p>
