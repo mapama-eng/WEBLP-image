@@ -45,6 +45,7 @@ const assets = {
   hairshow: "/images/hairshow.jpg",
   jbcCover: "/images/jbc-cover.png",
   hotpepperAward: "/images/hotpepper-award.jpg",
+  recruitScissors: "/images/recruit-scissors.jpg",
   logoMark: "/assets/photos/miiiu-logo-transparent.png",
 };
 
@@ -695,8 +696,8 @@ function RecruitInformation() {
       </div>
 
       <figure className="recruit-info-photo" data-reveal>
-        <img src={assets.owner} alt="MiiiUオーナー" {...imageProps} />
-        <figcaption>OWNER / MiiiU</figcaption>
+        <img src={assets.recruitScissors} alt="MiiiUで使用するシザー" {...imageProps} />
+        <figcaption>SCISSORS / MiiiU</figcaption>
       </figure>
     </section>
   );
