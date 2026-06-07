@@ -1211,7 +1211,10 @@ span {
 }
 
 .activity-card:nth-child(2) img {
-  object-position: center 48%;
+  object-fit: contain;
+  object-position: center;
+  background: #eee4d7;
+  padding: 0.5rem;
 }
 
 .activity-card:nth-child(3) img {
