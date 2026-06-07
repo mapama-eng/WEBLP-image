@@ -3,6 +3,36 @@ import { useEffect, useState } from "react";
 const INSTAGRAM_URL = "https://www.instagram.com/miiiu_1111/";
 const JBC_URL = "https://jbc-web.info/miiiu-4/";
 
+const mobileNavigation = [
+  {
+    label: "CONCEPT",
+    href: "#concept",
+    children: [{ label: "OUR BEGINNING", href: "#origin" }],
+  },
+  { label: "OWNER MESSAGE", href: "#message" },
+  { label: "SALON SPACE", href: "#space" },
+  {
+    label: "OUR TEAM",
+    href: "#team",
+    children: [
+      { label: "STAFF VOICE", href: "#voices" },
+      { label: "ACTIVITY", href: "#activity" },
+    ],
+  },
+  {
+    label: "WORK STYLE",
+    href: "#work",
+    children: [{ label: "DAILY FLOW", href: "#daily-flow" }],
+  },
+  {
+    label: "RECRUITMENT",
+    href: "#looking",
+    children: [{ label: "RECRUITMENT INFORMATION", href: "#recruit-info" }],
+  },
+  { label: "FAQ", href: "#faq" },
+  { label: "ENTRY", href: "#entry" },
+];
+
 const assets = {
   hero: "/assets/photos/miiiu-editorial-hero.png",
   reception: "/assets/photos/salon-reception-counter.JPG",
@@ -106,7 +136,7 @@ const activityItems = [
 const teamMembers = [
   {
     name: "Stylist Rio",
-    src: "/assets/photos/team-rio.png",
+    src: "/assets/photos/team-rio-female.png",
     alt: "Stylist Rioの仮スタッフ写真",
   },
   {
@@ -130,7 +160,7 @@ const staffVoices = [
   {
     name: "Stylist Aoi",
     role: "入社2年目 / スタイリスト",
-    image: "/assets/photos/team-rio.png",
+    image: "/assets/photos/team-rio-female.png",
     quote:
       "一人のお客様と向き合う時間を大切にできるので、自分の提案にも責任と楽しさを感じられます。焦らず、でも確実に成長できる空気があります。",
   },
@@ -474,7 +504,7 @@ function OurTeam() {
               <img src={member.src} alt={member.alt} {...imageProps} />
             </figure>
             <p>{member.name}</p>
-            <span>STAFF IMAGE</span>
+            <span>OUR TEAM</span>
           </article>
         ))}
       </div>
@@ -726,7 +756,37 @@ function Entry() {
 
 export default function RecruitPage() {
   const showBackToTop = useBackToTop();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   useRevealAnimation();
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 720px)");
+    const closeOnDesktop = (event) => {
+      if (event.matches) setIsMobileMenuOpen(false);
+    };
+
+    desktopQuery.addEventListener("change", closeOnDesktop);
+    return () => desktopQuery.removeEventListener("change", closeOnDesktop);
+  }, []);
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <main className="site-shell">
@@ -743,6 +803,60 @@ export default function RecruitPage() {
           <a href="#faq">FAQ</a>
           <a href="#entry">Entry</a>
         </nav>
+
+        <button
+          className={`mobile-menu-button ${isMobileMenuOpen ? "is-open" : ""}`}
+          type="button"
+          aria-label={isMobileMenuOpen ? "メニューを閉じる" : "メニューを開く"}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setIsMobileMenuOpen((current) => !current)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <button
+          className={`mobile-menu-backdrop ${isMobileMenuOpen ? "is-open" : ""}`}
+          type="button"
+          aria-label="メニューを閉じる"
+          tabIndex={isMobileMenuOpen ? 0 : -1}
+          onClick={closeMobileMenu}
+        />
+
+        <aside
+          id="mobile-navigation"
+          className={`mobile-menu-panel ${isMobileMenuOpen ? "is-open" : ""}`}
+          aria-hidden={!isMobileMenuOpen}
+        >
+          <div className="mobile-menu-heading">
+            <p>MENU</p>
+            <span>MiiiU recruit 2026</span>
+          </div>
+          <nav className="mobile-nav" aria-label="スマートフォン用ページ内ナビゲーション">
+            <ul>
+              {mobileNavigation.map((item) => (
+                <li className="mobile-nav-group" key={item.label}>
+                  <a className="mobile-nav-primary" href={item.href} onClick={closeMobileMenu}>
+                    {item.label}
+                  </a>
+                  {item.children ? (
+                    <ul className="mobile-nav-children">
+                      {item.children.map((child) => (
+                        <li key={child.label}>
+                          <a href={child.href} onClick={closeMobileMenu}>
+                            {child.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
       </header>
 
       <Hero />
@@ -785,7 +899,7 @@ export default function RecruitPage() {
       <a className={`back-to-top ${showBackToTop ? "visible" : ""}`} href="#top" aria-label="ページ上部へ戻る">
         ↑
       </a>
-      <FixedInstagramCta />
+      {!isMobileMenuOpen ? <FixedInstagramCta /> : null}
     </main>
   );
 }

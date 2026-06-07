@@ -120,8 +120,8 @@ span {
   text-transform: lowercase;
 }
 
-.site-header nav {
-  display: grid;
+.site-header > nav {
+  display: none;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   order: 3;
   flex: 0 0 100%;
@@ -135,19 +135,167 @@ span {
   scrollbar-width: none;
 }
 
-.site-header nav::-webkit-scrollbar {
+.site-header > nav::-webkit-scrollbar {
   display: none;
 }
 
-.site-header nav a {
+.site-header > nav a {
   min-width: 0;
   text-align: center;
   white-space: normal;
   line-height: 1.35;
 }
 
-.site-header nav .nav-owner span {
+.site-header > nav .nav-owner span {
   display: block;
+}
+
+.mobile-menu-button {
+  position: relative;
+  z-index: 92;
+  display: inline-flex;
+  flex: 0 0 2.9rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: 2.9rem;
+  height: 2.9rem;
+  border: 0;
+  background: transparent;
+  color: #23211e;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-menu-button span {
+  display: block;
+  width: 1.45rem;
+  height: 1px;
+  background: currentColor;
+  transform-origin: center;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.mobile-menu-button.is-open span:nth-child(1) {
+  transform: translateY(0.4rem) rotate(45deg);
+}
+
+.mobile-menu-button.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-button.is-open span:nth-child(3) {
+  transform: translateY(-0.4rem) rotate(-45deg);
+}
+
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: block;
+  border: 0;
+  background: rgba(35, 33, 30, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 280ms ease, visibility 280ms ease;
+}
+
+.mobile-menu-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.mobile-menu-panel {
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 90;
+  width: min(88vw, 25rem);
+  height: 100dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding:
+    max(5.8rem, calc(env(safe-area-inset-top) + 4.8rem))
+    max(1.7rem, calc(env(safe-area-inset-right) + 1.25rem))
+    max(2.5rem, calc(env(safe-area-inset-bottom) + 2rem))
+    2rem;
+  background:
+    linear-gradient(150deg, rgba(255, 253, 248, 0.99), rgba(246, 240, 232, 0.98)),
+    #f6f0e8;
+  box-shadow: -1.25rem 0 3rem rgba(35, 33, 30, 0.1);
+  transform: translateX(102%);
+  visibility: hidden;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), visibility 360ms ease;
+}
+
+.mobile-menu-panel.is-open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.mobile-menu-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(184, 154, 94, 0.34);
+}
+
+.mobile-menu-heading p,
+.mobile-menu-heading span {
+  margin: 0;
+}
+
+.mobile-menu-heading p {
+  font-size: 0.7rem;
+  letter-spacing: 0.36em;
+}
+
+.mobile-menu-heading span {
+  color: rgba(35, 33, 30, 0.42);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+}
+
+.mobile-nav {
+  margin-top: 1rem;
+}
+
+.mobile-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mobile-nav-group {
+  border-bottom: 1px solid rgba(169, 156, 141, 0.22);
+}
+
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 3.35rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-nav-primary {
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+}
+
+.mobile-nav-children {
+  padding: 0 0 0.65rem 1rem !important;
+  border-left: 1px solid rgba(184, 154, 94, 0.42);
+}
+
+.mobile-nav-children a {
+  min-height: 2.8rem;
+  color: rgba(35, 33, 30, 0.52);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
 }
 
 .eyebrow,
@@ -1602,7 +1750,7 @@ html.reveal-ready [data-reveal].is-visible,
     padding-top: 2rem;
   }
 
-  .site-header nav {
+  .site-header > nav {
     display: flex;
     order: 0;
     flex: 0 1 auto;
@@ -1615,12 +1763,18 @@ html.reveal-ready [data-reveal].is-visible,
     text-transform: uppercase;
   }
 
-  .site-header nav .nav-owner span {
+  .site-header > nav .nav-owner span {
     display: inline;
   }
 
-  .site-header nav .nav-owner span + span::before {
+  .site-header > nav .nav-owner span + span::before {
     content: " ";
+  }
+
+  .mobile-menu-button,
+  .mobile-menu-backdrop,
+  .mobile-menu-panel {
+    display: none;
   }
 
   .instagram-cta {
