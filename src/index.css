@@ -1216,6 +1216,8 @@ summary {
   isolation: isolate;
   overflow: hidden;
   margin: 0;
+  aspect-ratio: 4 / 5;
+  background: #eee4d7;
 }
 
 .activity-card figure::after {
@@ -1231,6 +1233,7 @@ summary {
 
 .activity-image-link {
   display: block;
+  height: 100%;
   color: inherit;
 }
 
@@ -1242,9 +1245,10 @@ summary {
 .activity-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 4.05;
+  height: 100%;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: center 44%;
+  object-position: center;
   filter: saturate(0.78) contrast(0.92) brightness(1.04);
   transition:
     filter 260ms ease,
@@ -1252,21 +1256,15 @@ summary {
 }
 
 .activity-card:first-child img {
-  object-position: center 46%;
+  object-position: center 50%;
 }
 
 .activity-card:nth-child(2) img {
-  object-fit: contain;
-  object-position: center;
-  background: #eee4d7;
-  padding: 0.5rem;
+  object-position: center 50%;
 }
 
 .activity-card:nth-child(3) img {
-  object-fit: contain;
-  object-position: center;
-  background: #eee4d7;
-  padding: 0.5rem;
+  object-position: center 50%;
 }
 
 .activity-card figure:hover img {
