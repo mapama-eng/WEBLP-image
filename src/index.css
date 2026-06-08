@@ -1796,6 +1796,14 @@ html.reveal-ready [data-reveal].is-visible,
   transform: translateY(0);
 }
 
+html.reveal-ready .recruit-info-photo[data-reveal],
+html.reveal-ready .recruit-info-photo[data-reveal].is-visible,
+.recruit-info-photo[data-reveal] {
+  opacity: 0.14;
+  transform: none;
+  transition: none;
+}
+
 @media (max-width: 719px) {
   .concept-section-compact .concept-frame {
     grid-template-columns: minmax(0, 1fr);
@@ -1971,6 +1979,12 @@ html.reveal-ready [data-reveal].is-visible,
     bottom: -8%;
     width: min(54vw, 46rem);
     height: min(78%, 42rem);
+    opacity: 0.16;
+  }
+
+  html.reveal-ready .recruit-info-photo[data-reveal],
+  html.reveal-ready .recruit-info-photo[data-reveal].is-visible,
+  .recruit-info-photo[data-reveal] {
     opacity: 0.16;
   }
 
