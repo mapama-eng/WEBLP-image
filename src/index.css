@@ -1011,13 +1011,18 @@ summary {
 }
 
 .recruit-info-section {
+  position: relative;
   display: grid;
   gap: 2.7rem;
   align-items: center;
   border-top: 1px solid rgba(184, 154, 94, 0.26);
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .recruit-info-copy {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 1.15rem;
   order: 2;
@@ -1090,20 +1095,21 @@ summary {
 }
 
 .recruit-info-photo {
-  position: relative;
+  position: absolute;
   isolation: isolate;
-  order: 1;
+  right: -18%;
+  bottom: -8%;
+  z-index: 0;
+  width: min(78vw, 38rem);
+  height: min(66%, 36rem);
   overflow: hidden;
   margin: 0;
+  opacity: 0.09;
+  pointer-events: none;
 }
 
 .recruit-info-photo::before {
-  content: "";
-  position: absolute;
-  inset: 1rem;
-  z-index: 2;
-  border: 1px solid rgba(184, 154, 94, 0.34);
-  pointer-events: none;
+  content: none;
 }
 
 .recruit-info-photo::after {
@@ -1113,28 +1119,21 @@ summary {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(246, 240, 232, 0.32), transparent 42%, rgba(216, 206, 193, 0.26)),
-    linear-gradient(180deg, rgba(255, 253, 248, 0.2), transparent 50%, rgba(246, 240, 232, 0.34));
+    linear-gradient(90deg, rgba(246, 240, 232, 0.72), transparent 46%, rgba(246, 240, 232, 0.58)),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.58), transparent 45%, rgba(246, 240, 232, 0.74));
   mix-blend-mode: screen;
 }
 
 .recruit-info-photo img {
   width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: 58% 46%;
-  filter: saturate(0.72) contrast(0.88) brightness(1.08);
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: blur(7px) saturate(0.52) contrast(0.7) brightness(1.36);
 }
 
 .recruit-info-photo figcaption {
-  position: absolute;
-  right: 1.2rem;
-  bottom: 1rem;
-  z-index: 3;
-  margin: 0;
-  color: rgba(255, 253, 248, 0.76);
-  font-size: 0.62rem;
-  letter-spacing: 0.28em;
+  display: none;
 }
 
 .recruit-info-entry {
