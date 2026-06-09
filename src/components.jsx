@@ -110,13 +110,6 @@ const recruitInfo = [
   ["その他", "条件交渉可"],
 ];
 
-const recruitWelcome = [
-  "お客様と真剣に向き合いたい方",
-  "技術だけでなく、人としても成長したい方",
-  "新しいことにチャレンジしたい方",
-  "落ち着いた上質な空間で働きたい方",
-];
-
 const activityItems = [
   {
     title: "Hair Show Activity",
@@ -671,12 +664,6 @@ function RecruitInformation() {
           お客様一人ひとりに丁寧に向き合いながら、似合わせカット、ツヤ感・透明感カラー、髪質改善を中心に、
           長く信頼される美容師として成長できる環境を大切にしています。
         </p>
-        <ul className="recruit-welcome-list">
-          {recruitWelcome.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-        <p>そんな想いを持つ方を歓迎します。</p>
         <dl className="recruit-info-list">
           {recruitInfo.map(([label, value]) => (
             <div className="recruit-info-item" key={label}>
