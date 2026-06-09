@@ -764,6 +764,76 @@ function Entry() {
   );
 }
 
+export function EntryRecruitPage() {
+  useRevealAnimation();
+
+  return (
+    <main className="entry-route-shell">
+      <header className="entry-route-header">
+        <a className="brand" href="/" aria-label="MiiiU recruit トップページへ">
+          MiiiU
+          <span>recruit 2026</span>
+        </a>
+        <a className="entry-route-back" href="/">
+          Recruit Top
+        </a>
+      </header>
+
+      <section className="entry-recruit-section" aria-labelledby="entry-recruit-title">
+        <figure className="entry-recruit-visual" aria-hidden="true">
+          <img src={assets.recruitScissors} alt="" {...imageProps} />
+        </figure>
+
+        <div className="entry-recruit-content" data-reveal>
+          <div className="entry-recruit-heading">
+            <p>RECRUIT INFORMATION</p>
+            <h1 id="entry-recruit-title">募集要項</h1>
+          </div>
+
+          <dl className="entry-recruit-list">
+            {recruitInfo.map(([label, value]) => (
+              <div className="entry-recruit-item" key={label}>
+                <dt>{label}</dt>
+                <dd>
+                  {value.split("\n").map((line) => (
+                    <span key={line}>{line}</span>
+                  ))}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <div id="entry-application" className="entry-recruit-application">
+            <h2>応募方法</h2>
+            <p>InstagramのDMよりご連絡ください。質問だけでもお気軽にお待ちしています。</p>
+            <InstagramButton variant="entry-page">Instagramで相談する</InstagramButton>
+          </div>
+        </div>
+      </section>
+
+      <footer className="entry-route-footer">
+        <p className="brand">
+          MiiiU
+          <span>recruit 2026</span>
+        </p>
+        <a
+          className="footer-instagram"
+          href={INSTAGRAM_URL}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="MiiiU公式Instagramを見る"
+        >
+          <InstagramIcon />
+          <span className="footer-instagram-account">@miiiu_1111</span>
+          <span className="footer-instagram-label">Instagramを見る</span>
+        </a>
+      </footer>
+
+      <FixedInstagramCta />
+    </main>
+  );
+}
+
 export default function RecruitPage() {
   const showBackToTop = useBackToTop();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

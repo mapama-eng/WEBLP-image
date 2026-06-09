@@ -1159,6 +1159,218 @@ summary {
   line-height: 2;
 }
 
+.entry-route-shell {
+  min-height: 100svh;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 253, 248, 0.98), rgba(246, 240, 232, 0.94)),
+    #f6f0e8;
+  color: #23211e;
+}
+
+.entry-route-header,
+.entry-route-footer {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: min(100% - 2rem, 1220px);
+  margin: 0 auto;
+}
+
+.entry-route-header {
+  align-items: center;
+  padding: 1.7rem 0;
+}
+
+.entry-route-back {
+  border-bottom: 1px solid rgba(184, 154, 94, 0.44);
+  padding-bottom: 0.3rem;
+  color: rgba(35, 33, 30, 0.58);
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transition: border-color 220ms ease, color 220ms ease;
+}
+
+.entry-route-back:hover,
+.entry-route-back:focus-visible {
+  border-color: rgba(184, 154, 94, 0.88);
+  color: #23211e;
+}
+
+.entry-recruit-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: calc(100svh - 6rem);
+  border-top: 1px solid rgba(184, 154, 94, 0.24);
+  border-bottom: 1px solid rgba(184, 154, 94, 0.2);
+  padding: clamp(4.8rem, 10vw, 8rem) max(1rem, calc((100vw - 1220px) / 2));
+}
+
+.entry-recruit-content {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  width: min(100%, 45rem);
+}
+
+.entry-recruit-heading {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.entry-recruit-heading::after {
+  content: "";
+  width: 5.5rem;
+  height: 1px;
+  margin-top: 0.25rem;
+  background: rgba(184, 154, 94, 0.88);
+}
+
+.entry-recruit-heading p {
+  margin: 0;
+  color: rgba(148, 116, 62, 0.82);
+  font-size: 0.68rem;
+  letter-spacing: 0.34em;
+}
+
+.entry-recruit-heading h1 {
+  margin: 0;
+  color: rgba(35, 33, 30, 0.86);
+  font-size: clamp(2.3rem, 7vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  line-height: 1.35;
+}
+
+.entry-recruit-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid rgba(169, 156, 141, 0.4);
+}
+
+.entry-recruit-item {
+  display: grid;
+  grid-template-columns: minmax(6rem, 0.34fr) minmax(0, 0.66fr);
+  gap: clamp(1rem, 4vw, 2.5rem);
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(169, 156, 141, 0.3);
+}
+
+.entry-recruit-item dt {
+  color: rgba(35, 33, 30, 0.56);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  line-height: 1.9;
+}
+
+.entry-recruit-item dd {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  color: rgba(35, 33, 30, 0.78);
+  font-size: clamp(0.98rem, 3.8vw, 1.14rem);
+  letter-spacing: 0.06em;
+  line-height: 1.85;
+}
+
+.entry-recruit-application {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 39rem);
+  border-top: 1px solid rgba(184, 154, 94, 0.42);
+  padding-top: 1.5rem;
+}
+
+.entry-recruit-application h2 {
+  margin: 0;
+  color: rgba(148, 116, 62, 0.88);
+  font-size: 0.86rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+}
+
+.entry-recruit-application p {
+  margin: 0;
+  color: rgba(35, 33, 30, 0.72);
+  font-size: 0.94rem;
+  letter-spacing: 0.03em;
+  line-height: 2;
+}
+
+.instagram-cta.entry-page {
+  width: min(100%, 21rem);
+  margin-top: 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.72);
+}
+
+.instagram-cta.entry-page:hover,
+.instagram-cta.entry-page:focus-visible {
+  background: rgba(184, 154, 94, 0.9);
+}
+
+.entry-recruit-visual {
+  position: absolute;
+  right: -20%;
+  bottom: -5%;
+  z-index: 0;
+  width: min(112vw, 48rem);
+  height: 48%;
+  overflow: hidden;
+  margin: 0;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.entry-recruit-visual::before,
+.entry-recruit-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.entry-recruit-visual::before {
+  background: linear-gradient(
+    to right,
+    rgba(255, 253, 248, 0.98),
+    rgba(255, 253, 248, 0.9) 34%,
+    rgba(255, 253, 248, 0.66) 66%,
+    rgba(255, 253, 248, 0.28)
+  );
+}
+
+.entry-recruit-visual::after {
+  background:
+    linear-gradient(to bottom, rgba(255, 253, 248, 0.44), transparent 32%, rgba(246, 240, 232, 0.42)),
+    linear-gradient(to left, rgba(216, 206, 193, 0.08), transparent 60%);
+}
+
+.entry-recruit-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  filter: saturate(0.58) contrast(0.78) brightness(1.2);
+}
+
+.entry-route-footer {
+  padding: 2.5rem 0 6rem;
+}
+
+.entry-route-footer .footer-instagram {
+  padding-left: 0;
+  border-left: 0;
+}
+
 .activity-section {
   display: grid;
   gap: 2.6rem;
@@ -1805,6 +2017,28 @@ html.reveal-ready .recruit-info-photo[data-reveal].is-visible,
 }
 
 @media (max-width: 719px) {
+  .entry-route-back {
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+  }
+
+  .entry-recruit-item {
+    grid-template-columns: minmax(5.5rem, 0.32fr) minmax(0, 0.68fr);
+    gap: 0.8rem;
+  }
+
+  .entry-recruit-item dd {
+    min-width: 0;
+    font-size: 0.96rem;
+    letter-spacing: 0.03em;
+    overflow-wrap: anywhere;
+  }
+
+  .entry-route-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .concept-section-compact .concept-frame {
     grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
@@ -1861,6 +2095,41 @@ html.reveal-ready .recruit-info-photo[data-reveal].is-visible,
 }
 
 @media (min-width: 720px) {
+  .entry-route-header,
+  .entry-route-footer {
+    width: min(100% - 4rem, 1220px);
+  }
+
+  .entry-recruit-section {
+    padding-inline: max(2rem, calc((100vw - 1220px) / 2));
+  }
+
+  .entry-recruit-content {
+    width: min(58vw, 45rem);
+  }
+
+  .entry-recruit-visual {
+    right: -4%;
+    bottom: 0;
+    width: min(58vw, 58rem);
+    height: 100%;
+    opacity: 0.3;
+  }
+
+  .entry-recruit-visual::before {
+    background: linear-gradient(
+      to right,
+      rgba(255, 253, 248, 0.98),
+      rgba(255, 253, 248, 0.78) 42%,
+      rgba(255, 253, 248, 0.35) 78%,
+      rgba(255, 253, 248, 0.16)
+    );
+  }
+
+  .entry-recruit-visual img {
+    object-position: right center;
+  }
+
   .site-header {
     align-items: center;
     padding-top: 2rem;

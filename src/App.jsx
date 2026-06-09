@@ -1,5 +1,7 @@
-import RecruitPage from "./components.jsx";
+import RecruitPage, { EntryRecruitPage } from "./components.jsx";
 
 export default function App() {
-  return <RecruitPage />;
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+
+  return path === "/entry" ? <EntryRecruitPage /> : <RecruitPage />;
 }
