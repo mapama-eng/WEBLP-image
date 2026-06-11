@@ -558,7 +558,7 @@ function DailyFlow() {
     <section id="daily-flow" className="daily-flow-section">
       <div className="daily-flow-head" data-reveal>
         <SectionHeading eyebrow="DAILY FLOW" title="1日の流れ" />
-        <p>09:00から20:00までの一例です。予約状況に合わせながら、丁寧に一日を整えます。</p>
+        <p>09:15から19:15までの一例です。予約状況に合わせながら、丁寧に一日を整えます。</p>
       </div>
       <ol className="daily-flow-list" data-reveal>
         {dailyFlow.map(([time, title, text]) => (
