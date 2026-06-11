@@ -687,7 +687,7 @@ function RecruitInformation() {
       </div>
 
       <figure className="recruit-info-photo recruit-info-photo-desktop">
-        <img src={assets.recruitScissors} alt="MiiiUで使用するシザー" {...imageProps} />
+        <img src={assets.recruitScissors} alt="MiiiUで使用するシザー" {...imageProps} loading="eager" />
         <figcaption>SCISSORS / MiiiU</figcaption>
       </figure>
     </section>
