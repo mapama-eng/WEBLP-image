@@ -657,6 +657,10 @@ function RecruitInformation() {
     <section id="recruit-info" className="recruit-info-section">
       <div className="recruit-info-copy" data-reveal>
         <SectionHeading eyebrow="RECRUIT INFORMATION" title="新しい仲間を募集しています。" />
+        <figure className="recruit-info-photo recruit-info-photo-mobile">
+          <img src={assets.recruitScissors} alt="MiiiUで使用するシザー" {...imageProps} />
+          <figcaption>SCISSORS / MiiiU</figcaption>
+        </figure>
         <p>
           MiiiUでは、これからのサロンを一緒に育ててくれる新しい仲間を募集しています。
         </p>
@@ -682,7 +686,7 @@ function RecruitInformation() {
         </div>
       </div>
 
-      <figure className="recruit-info-photo" data-reveal>
+      <figure className="recruit-info-photo recruit-info-photo-desktop">
         <img src={assets.recruitScissors} alt="MiiiUで使用するシザー" {...imageProps} />
         <figcaption>SCISSORS / MiiiU</figcaption>
       </figure>
