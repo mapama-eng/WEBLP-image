@@ -1104,7 +1104,7 @@ summary {
   height: min(58%, 34rem);
   overflow: hidden;
   margin: 0;
-  opacity: 0.18;
+  opacity: 0.22;
   pointer-events: none;
 }
 
@@ -1119,8 +1119,8 @@ summary {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(246, 240, 232, 0.62), transparent 46%, rgba(246, 240, 232, 0.48)),
-    linear-gradient(180deg, rgba(255, 253, 248, 0.5), transparent 45%, rgba(246, 240, 232, 0.62));
+    linear-gradient(90deg, rgba(246, 240, 232, 0.5), transparent 46%, rgba(246, 240, 232, 0.38)),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.42), transparent 45%, rgba(246, 240, 232, 0.52));
   mix-blend-mode: screen;
 }
 
@@ -1129,7 +1129,7 @@ summary {
   height: 100%;
   object-fit: contain;
   object-position: center;
-  filter: blur(0.5px) saturate(0.62) contrast(0.8) brightness(1.18);
+  filter: saturate(0.66) contrast(0.84) brightness(1.14);
 }
 
 .recruit-info-photo figcaption {
@@ -2011,7 +2011,7 @@ html.reveal-ready [data-reveal].is-visible,
 html.reveal-ready .recruit-info-photo[data-reveal],
 html.reveal-ready .recruit-info-photo[data-reveal].is-visible,
 .recruit-info-photo[data-reveal] {
-  opacity: 0.18;
+  opacity: 0.22;
   transform: none;
   transition: none;
 }
@@ -2248,13 +2248,13 @@ html.reveal-ready .recruit-info-photo[data-reveal].is-visible,
     bottom: -8%;
     width: min(54vw, 46rem);
     height: min(78%, 42rem);
-    opacity: 0.24;
+    opacity: 0.28;
   }
 
   html.reveal-ready .recruit-info-photo[data-reveal],
   html.reveal-ready .recruit-info-photo[data-reveal].is-visible,
   .recruit-info-photo[data-reveal] {
-    opacity: 0.24;
+    opacity: 0.28;
   }
 
   .recruit-info-photo img {
