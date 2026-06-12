@@ -135,19 +135,19 @@ const activityItems = [
 
 const teamMembers = [
   {
-    name: "Stylist Rio",
-    src: "/assets/photos/team-rio-female.png",
-    alt: "Stylist Rioの仮スタッフ写真",
+    name: "Rio",
+    src: "/assets/photos/staff-rio.jpg",
+    alt: "Rioのスタッフ写真",
   },
   {
-    name: "Stylist Nene",
-    src: "/assets/photos/team-nene.png",
-    alt: "Stylist Neneの仮スタッフ写真",
+    name: "Nene",
+    src: "/assets/photos/staff-nene.jpg",
+    alt: "Neneのスタッフ写真",
   },
   {
-    name: "Stylist Minori",
-    src: "/assets/photos/team-minori.png",
-    alt: "Stylist Minoriの仮スタッフ写真",
+    name: "Minori",
+    src: "/assets/photos/staff-minori.jpg",
+    alt: "Minoriのスタッフ写真",
   },
 ];
 
@@ -158,25 +158,25 @@ const originStory = [
 
 const staffVoices = [
   {
-    name: "Stylist Aoi",
+    name: "Rio",
     role: "入社2年目 / スタイリスト",
-    image: "/assets/photos/team-rio-female.png",
+    image: "/assets/photos/staff-rio.jpg",
     quote:
-      "一人のお客様と向き合う時間を大切にできるので、自分の提案にも責任と楽しさを感じられます。焦らず、でも確実に成長できる空気があります。",
+      "MiiiUの良いところは、個室でお客様としっかり向き合いながら、ゆっくり過ごしていただけるところだと思います。また、プライベートも充実できる環境なので、仕事も前向きに頑張ることができます。",
   },
   {
-    name: "Stylist Mei",
+    name: "Nene",
     role: "中途入社 / スタイリスト",
-    image: "",
+    image: "/assets/photos/staff-nene.jpg",
     quote:
-      "前職では忙しさに追われることも多かったのですが、MiiiUでは技術も接客も丁寧に見直せています。相談しやすい距離感も安心です。",
+      "MiiiUではマンツーマンでお客様一人ひとりと向き合うことができるので、お客様にも自分自身にも負担をかけず、丁寧に施術できる環境が整っています。落ち着いて働けることが魅力だと感じています。",
   },
   {
-    name: "Assistant Rina",
+    name: "Minori",
     role: "アシスタント",
-    image: "/assets/photos/team-minori.png",
+    image: "/assets/photos/staff-minori.jpg",
     quote:
-      "練習や学びのペースを一緒に考えてもらえるので、毎日の積み重ねが前向きになりました。お客様との会話から学ぶことも多いです。",
+      "お客様と周りを気にせず話せる半個室のプライベート空間がとても気に入っています。髪に優しい薬剤やヘアケア商品、美容機器も充実しており、お客様に安心してヘアスタイルをご提案できる環境です。",
   },
 ];
 
