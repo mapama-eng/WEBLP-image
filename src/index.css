@@ -2314,6 +2314,13 @@ html.reveal-ready [data-reveal].is-visible,
   }
 }
 
+@media (min-width: 1024px) {
+  .recruit-info-photo-desktop {
+    right: -8%;
+    width: min(58.75vw, 55rem);
+  }
+}
+
 @media (min-width: 1080px) {
   .recruit-info-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
