@@ -159,21 +159,21 @@ const originStory = [
 const staffVoices = [
   {
     name: "Rio",
-    role: "入社2年目 / スタイリスト",
+    role: "スタイリスト",
     image: "/assets/photos/staff-rio.jpg",
     quote:
       "MiiiUの良いところは、個室でお客様としっかり向き合いながら、ゆっくり過ごしていただけるところだと思います。また、プライベートも充実できる環境なので、仕事も前向きに頑張ることができます。",
   },
   {
     name: "Nene",
-    role: "中途入社 / スタイリスト",
+    role: "スタイリスト",
     image: "/assets/photos/staff-nene.jpg",
     quote:
       "MiiiUではマンツーマンでお客様一人ひとりと向き合うことができるので、お客様にも自分自身にも負担をかけず、丁寧に施術できる環境が整っています。落ち着いて働けることが魅力だと感じています。",
   },
   {
     name: "Minori",
-    role: "アシスタント",
+    role: "スタイリスト",
     image: "/assets/photos/staff-minori.jpg",
     quote:
       "お客様と周りを気にせず話せる半個室のプライベート空間がとても気に入っています。髪に優しい薬剤やヘアケア商品、美容機器も充実しており、お客様に安心してヘアスタイルをご提案できる環境です。",
