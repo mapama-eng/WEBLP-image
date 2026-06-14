@@ -45,7 +45,7 @@ const assets = {
   hairshow: "/images/hairshow.jpg",
   jbcCover: "/images/jbc-cover.png",
   hotpepperAward: "/images/hotpepper-award.jpg",
-  recruitScissors: "/images/recruit-scissors.jpg",
+  recruitScissors: "/images/recruit-salon-work.png",
   logoMark: "/assets/photos/miiiu-logo-transparent.png",
 };
 
