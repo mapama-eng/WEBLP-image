@@ -116,6 +116,7 @@ const activityItems = [
     text: "サロンワークだけでなく、表現の場も大切にするサロン。",
     src: assets.hairshow,
     alt: "MiiiUのクリエイティブ活動を表すサロンイメージ",
+    href: "https://2025.campuscollection.jp/sendai/",
   },
   {
     title: "Japan Brand Collection",
@@ -632,10 +633,11 @@ function ActivitySection() {
                   className="activity-image-link"
                   href={item.href}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label={`${item.title} 掲載ページを見る`}
                 >
                   <img src={item.src} alt={item.alt} {...imageProps} />
+                  <span className="activity-external-label">View More ↗</span>
                 </a>
               ) : (
                 <img src={item.src} alt={item.alt} {...imageProps} />

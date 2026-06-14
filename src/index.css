@@ -1451,9 +1451,32 @@ summary {
 }
 
 .activity-image-link {
+  position: relative;
   display: block;
   height: 100%;
   color: inherit;
+}
+
+.activity-external-label {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  z-index: 2;
+  padding: 0.32rem 0.46rem;
+  background: rgba(255, 253, 248, 0.82);
+  color: rgba(151, 119, 58, 0.86);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  pointer-events: none;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.activity-image-link:hover .activity-external-label,
+.activity-image-link:focus-visible .activity-external-label {
+  background: rgba(255, 253, 248, 0.94);
+  color: rgba(128, 96, 38, 0.96);
 }
 
 .activity-image-link:focus-visible {
