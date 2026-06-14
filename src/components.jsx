@@ -46,6 +46,7 @@ const assets = {
   jbcCover: "/images/jbc-cover.png",
   hotpepperAward: "/images/hotpepper-award.jpg",
   recruitScissors: "/images/recruit-salon-work.png",
+  recruitInformation: "/images/recruit-salon-treatment.png",
   logoMark: "/assets/photos/miiiu-logo-transparent.png",
 };
 
@@ -660,8 +661,8 @@ function RecruitInformation() {
       <div className="recruit-info-copy" data-reveal>
         <SectionHeading eyebrow="RECRUIT INFORMATION" title="新しい仲間を募集しています。" />
         <figure className="recruit-info-photo recruit-info-photo-mobile">
-          <img src={assets.recruitScissors} alt="MiiiUで使用するシザー" {...imageProps} />
-          <figcaption>SCISSORS / MiiiU</figcaption>
+          <img src={assets.recruitInformation} alt="お客様の髪を整えるMiiiUの美容師" {...imageProps} />
+          <figcaption>SALON WORK / MiiiU</figcaption>
         </figure>
         <p>
           MiiiUでは、これからのサロンを一緒に育ててくれる新しい仲間を募集しています。
@@ -689,8 +690,8 @@ function RecruitInformation() {
       </div>
 
       <figure className="recruit-info-photo recruit-info-photo-desktop">
-        <img src={assets.recruitScissors} alt="MiiiUで使用するシザー" {...imageProps} loading="eager" />
-        <figcaption>SCISSORS / MiiiU</figcaption>
+        <img src={assets.recruitInformation} alt="お客様の髪を整えるMiiiUの美容師" {...imageProps} loading="eager" />
+        <figcaption>SALON WORK / MiiiU</figcaption>
       </figure>
     </section>
   );

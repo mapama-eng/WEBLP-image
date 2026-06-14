@@ -1099,7 +1099,7 @@ summary {
   isolation: isolate;
   z-index: 1;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
   margin: 0.35rem 0 0.65rem;
   opacity: 1;
@@ -2266,7 +2266,7 @@ html.reveal-ready [data-reveal].is-visible,
     z-index: 0;
     width: min(47vw, 44rem);
     height: auto;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 3 / 2;
     margin: 0;
     opacity: 1;
     -webkit-mask-image: none;
