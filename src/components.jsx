@@ -111,6 +111,34 @@ const recruitInfo = [
   ["その他", "条件交渉可"],
 ];
 
+const recruitMessage = [
+  "MiiiUでは、お客様一人ひとりと丁寧に向き合いながら、",
+  "美容師としても人としても成長できる環境を大切にしています。",
+  "",
+  "技術だけではなく、",
+  "長く信頼される美容師を目指したい方をお待ちしています。",
+];
+
+const recruitHighlightValues = ["20代〜30代", "11,000円", "50〜60％", "10％"];
+const recruitHighlightLine = "土日6日以上勤務可能な方";
+
+function renderRecruitInfoLine(line) {
+  if (line === recruitHighlightLine) {
+    return <span className="recruit-info-highlight recruit-info-highlight-line">{line}</span>;
+  }
+
+  const matchingValue = recruitHighlightValues.find((value) => line.includes(value));
+
+  if (!matchingValue) return line;
+
+  return line.split(matchingValue).map((part, index, parts) => (
+    <span key={`${line}-${index}`}>
+      {part}
+      {index < parts.length - 1 ? <span className="recruit-info-highlight">{matchingValue}</span> : null}
+    </span>
+  ));
+}
+
 const activityItems = [
   {
     title: "Hair Show Activity",
@@ -664,25 +692,41 @@ function RecruitInformation() {
           <img src={assets.recruitInformation} alt="お客様の髪を整えるMiiiUの美容師" {...imageProps} />
           <figcaption>SALON WORK / MiiiU</figcaption>
         </figure>
-        <p>
-          MiiiUでは、これからのサロンを一緒に育ててくれる新しい仲間を募集しています。
-        </p>
-        <p>
-          お客様一人ひとりに丁寧に向き合いながら、似合わせカット、ツヤ感・透明感カラー、髪質改善を中心に、
-          長く信頼される美容師として成長できる環境を大切にしています。
-        </p>
+        <div className="recruit-info-message">
+          <h3>MESSAGE</h3>
+          {recruitMessage.map((line, index) =>
+            line ? (
+              <p key={line}>{line}</p>
+            ) : (
+              <br key={`message-break-${index}`} />
+            ),
+          )}
+        </div>
         <dl className="recruit-info-list">
           {recruitInfo.map(([label, value]) => (
             <div className="recruit-info-item" key={label}>
               <dt>{label}</dt>
               <dd>
                 {value.split("\n").map((line) => (
-                  <span key={line}>{line}</span>
+                  <span key={line}>{renderRecruitInfoLine(line)}</span>
                 ))}
               </dd>
             </div>
           ))}
         </dl>
+        <div className="recruit-info-contact">
+          <p>CONTACT</p>
+          <address>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=%E3%80%92994-0083%20%E5%A4%A9%E7%AB%A5%E5%B8%82%E8%8A%B3%E8%B3%80%E3%82%BF%E3%82%A6%E3%83%B3%E5%8D%972-5-18"
+              target="_blank"
+              rel="noreferrer"
+            >
+              〒994-0083 天童市芳賀タウン南2-5-18
+            </a>
+            <a href="tel:08092563995">080 9256 3995</a>
+          </address>
+        </div>
         <div className="recruit-info-entry">
           <p>応募方法</p>
           <span>InstagramのDMよりご連絡ください。質問だけでもお気軽にお待ちしています。</span>
