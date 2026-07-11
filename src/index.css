@@ -702,6 +702,7 @@ summary {
 .activity-card p,
 .daily-flow-head p,
 .daily-flow-list p,
+.faq-section .faq-item p,
 .voice-quote,
 .work-item p,
 .recruit-info-message p,
@@ -1983,11 +1984,12 @@ summary {
 
 .faq-section .faq-item p {
   margin: 0;
-  max-width: 44rem;
+  max-width: 46rem;
   padding: 0 0 1.35rem;
   color: rgba(35, 33, 30, 0.66);
   font-size: 0.92rem;
-  line-height: 2;
+  line-height: 2.05;
+  letter-spacing: 0.01em;
 }
 
 .seo-intro-inner {
@@ -2072,6 +2074,14 @@ summary {
 .footer-instagram:hover,
 .footer-instagram:focus-visible {
   color: #23211e;
+}
+
+.footer-copyright {
+  margin: 0;
+  color: rgba(35, 33, 30, 0.38);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
 }
 
 .back-to-top {
@@ -2192,6 +2202,18 @@ html.reveal-ready [data-reveal].is-visible,
   .recruit-info-item dd,
   .faq-section summary {
     line-height: 1.85;
+  }
+
+  .faq-section .faq-item p {
+    max-width: none;
+    font-size: 0.91rem;
+    line-height: 1.98;
+    letter-spacing: 0;
+  }
+
+  .footer-copyright {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
   }
 
   .work-item p {
@@ -2417,8 +2439,20 @@ html.reveal-ready [data-reveal].is-visible,
 
   .site-footer {
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
+    gap: 1.2rem 2rem;
+  }
+
+  .footer-links {
+    justify-content: flex-end;
+  }
+
+  .footer-copyright {
+    flex-basis: 100%;
+    text-align: right;
+    margin-top: -0.8rem;
   }
 
   .story-layout,

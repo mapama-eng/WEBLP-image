@@ -649,7 +649,7 @@ function ActivitySection() {
         </p>
         <p>
           また、MiiiUは「Japan Brand Collection 宮城・山形版」に3年連続で掲載されています。
-          地域の中でも上質なサロンとして選ばれ続けていることを、採用ページ内でも上品に伝えます。
+          日々のお客様との向き合い方や、私たちが大切にしてきたサロンづくり。その積み重ねが、今のMiiiUにつながっています。
         </p>
       </div>
 
@@ -1012,6 +1012,7 @@ export default function RecruitPage() {
             <span className="footer-instagram-label">Instagramを見る</span>
           </a>
         </div>
+        <p className="footer-copyright">© 2026 MiiiU. All Rights Reserved.</p>
       </footer>
 
       <a className={`back-to-top ${showBackToTop ? "visible" : ""}`} href="#top" aria-label="ページ上部へ戻る">
