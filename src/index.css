@@ -695,6 +695,23 @@ summary {
   line-height: 2.2;
 }
 
+.message-body p,
+.origin-body p,
+.space-copy > p,
+.activity-copy > p,
+.activity-card p,
+.daily-flow-head p,
+.daily-flow-list p,
+.voice-quote,
+.work-item p,
+.recruit-info-message p,
+.recruit-info-entry span,
+.seo-intro-inner p,
+.entry-copy > p {
+  overflow-wrap: normal;
+  word-break: auto-phrase;
+}
+
 .message-content {
   display: grid;
   gap: 2.3rem;
@@ -1870,7 +1887,7 @@ summary {
 .daily-flow-head {
   display: grid;
   gap: 1.2rem;
-  max-width: 36rem;
+  max-width: 42rem;
 }
 
 .daily-flow-list {
@@ -2148,10 +2165,13 @@ html.reveal-ready [data-reveal].is-visible,
   .origin-body p,
   .space-copy > p,
   .activity-copy > p,
+  .daily-flow-head p,
+  .recruit-info-message p,
   .recruit-info-copy > p,
   .seo-intro-inner p,
   .entry-copy > p {
-    line-height: 2.25;
+    line-height: 2.18;
+    letter-spacing: 0.01em;
   }
 
   .work-item p,
@@ -2161,7 +2181,8 @@ html.reveal-ready [data-reveal].is-visible,
   .faq-section .faq-item p,
   .recruit-welcome-list li,
   .recruit-info-entry span {
-    line-height: 2.05;
+    line-height: 1.95;
+    letter-spacing: 0.01em;
   }
 
   .looking-inner li {
@@ -2171,6 +2192,29 @@ html.reveal-ready [data-reveal].is-visible,
   .recruit-info-item dd,
   .faq-section summary {
     line-height: 1.85;
+  }
+
+  .work-item p {
+    max-width: 19rem;
+  }
+
+  .voice-quote {
+    max-width: none;
+    font-size: 0.93rem;
+  }
+
+  .daily-flow-head {
+    max-width: 100%;
+  }
+
+  .recruit-info-message p {
+    font-size: 0.94rem;
+    letter-spacing: 0;
+  }
+
+  .daily-flow-list li {
+    grid-template-columns: minmax(3.8rem, 0.18fr) minmax(0, 0.82fr);
+    gap: 0.9rem;
   }
 
   .instagram-cta {
